@@ -1,0 +1,4 @@
+/build
+rootfs.*
+/release/
+libtwoyi.so
