@@ -38,12 +38,23 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-//    externalNativeBuild {
-//        cmake {
-//            version '3.10.2'
-//            path 'src/main/cpp/CMakeLists.txt'
-//        }
-//    }
+}
+
+task cargoBuild {
+    doLast {
+        exec {
+            //切换到sh文件所在的目录，执行脚本
+            workingDir new File(project.projectDir, "rs")
+            //执行shell脚本 "," 传参
+            commandLine "sh", "build_rs.sh", "--release"
+        }
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if ((task.name == 'javaPreCompileDebug' || task.name == 'javaPreCompileRelease')) {
+        task.dependsOn 'cargoBuild'
+    }
 }
 
 dependencies {
