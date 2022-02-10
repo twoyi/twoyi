@@ -35,6 +35,8 @@
   </p>
 </div>
 
+[README 中文版](README_CN.md)
+
 ## Introduction
 
 Twoyi is a lightweight Android container. It runs a nearly complete Android system as a normal app (no root required) on Android. Additionally, it supports Android 8.1 ~ 12.
@@ -74,11 +76,11 @@ WIP
 
 Twoyi is partially written in Rust, so it's nessesary to [install Rust and Cargo](https://www.rust-lang.org/tools/install) first.
 
-You can check if it is installed by running `./gradlew cargoBuild`. If it succeeded, you will see libtwoyi.so in `app/src/main/jniLibs/arm64-v8a`.
-
 ### Install cargo-xdk
 
 Please refer to [cargo-xdk](https://github.com/tiann/cargo-xdk).
+
+You can check if it is installed by running `./gradlew cargoBuild`. If it succeeded, you will see libtwoyi.so in `app/src/main/jniLibs/arm64-v8a`.
 
 ### Integrating rootfs
 
