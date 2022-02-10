@@ -76,9 +76,9 @@ Twoyi is partially written in Rust, so it's nessesary to [install Rust and Cargo
 
 You can check if it is installed by running `./gradlew cargoBuild`. If it succeeded, you will see libtwoyi.so in `app/src/main/jniLibs/arm64-v8a`.
 
-### Install cargo-ndk
+### Install cargo-xdk
 
-Please refer to [cargo-ndk](https://github.com/bbqsrc/cargo-ndk).
+Please refer to [cargo-xdk](https://github.com/tiann/cargo-xdk).
 
 ### Integrating rootfs
 
