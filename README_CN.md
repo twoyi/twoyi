@@ -78,19 +78,6 @@ WIP
 
 请参阅: [cargo-xdk](https://github.com/tiann/cargo-xdk)
 
-1. 如果你安装的是cargo-xdk
-```sh
-# not cargo-ndk
-cargo install cargo-xdk
-```
-那么你需要把修改下app/rs/build_rs.sh文件
-```
-# 修改
-cargo ndk -t arm64-v8a -o ../src/main/jniLibs build $1
-# 为
-cargo xdk -t arm64-v8a -o ../src/main/jniLibs build $1
-```
-
 可以通过如下命令检查是否成功: `./gradlew cargoBuild`，成功的话可以在 `app/src/main/jniLibs/arm64-v8a` 看到 libtwoyi.so。
 
 ### 集成 rootfs
@@ -104,13 +91,16 @@ cargo xdk -t arm64-v8a -o ../src/main/jniLibs build $1
 直接使用 Android Studio 编译即可。
 
 ## 错误
+
 1. 编译rust时，链接出错
+
 ```
 error: linking with `/home/<user>/Android/Sdk/ndk/23.0.7421159/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang` failed: exit status: 1
   |
   = note: ld: error: unable to find library -lgcc
           clang-12: error: linker command failed with exit code 1 (use -v to see invocation)
 ```
+
 解决方法:
 
 降级ndk到22.x或更低版本(测试成功)，或者使用nightly版本rust(未测试)。
