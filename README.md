@@ -111,6 +111,8 @@ error: linking with `/home/<user>/Android/Sdk/ndk/23.0.7421159/toolchains/llvm/p
           clang-12: error: linker command failed with exit code 1 (use -v to see invocation)
 ```
 change version of ndk to 22.x or lower(tested), or use the nightly version of rust(not tested).
+
+For more details, please refer to [https://github.com/bbqsrc/cargo-ndk/issues/22](https://github.com/bbqsrc/cargo-ndk/issues/22)
 ## Discussion
 
 [Telegram Group](https://t.me/twoyi)
