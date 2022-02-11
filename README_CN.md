@@ -103,6 +103,16 @@ cargo xdk -t arm64-v8a -o ../src/main/jniLibs build $1
 
 直接使用 Android Studio 编译即可。
 
+## 错误
+1. 编译rust时，链接出错
+```
+error: linking with `/home/<user>/Android/Sdk/ndk/23.0.7421159/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang` failed: exit status: 1
+  |
+  = note: ld: error: unable to find library -lgcc
+          clang-12: error: linker command failed with exit code 1 (use -v to see invocation)
+```
+解决方法:
+降级ndk到22.x或更低版本(测试成功)，或者使用nightly版本rust(未测试)。
 ## 讨论
 
 [Telegram 群组](https://t.me/twoyi)

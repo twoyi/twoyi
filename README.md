@@ -102,7 +102,15 @@ To do that, extract rootfs.7z from the official release apk and copy it to `app/
 ### Build with Android Studio
 
 Build it with Android Studio normally.
-
+## Error
+1. linking error while compiling rust
+```
+error: linking with `/home/<user>/Android/Sdk/ndk/23.0.7421159/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang` failed: exit status: 1
+  |
+  = note: ld: error: unable to find library -lgcc
+          clang-12: error: linker command failed with exit code 1 (use -v to see invocation)
+```
+change version of ndk to 22.x or lower(tested), or use the nightly version of rust(not tested).
 ## Discussion
 
 [Telegram Group](https://t.me/twoyi)
