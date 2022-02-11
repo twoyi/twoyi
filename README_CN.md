@@ -78,13 +78,26 @@ WIP
 
 请参阅: [cargo-xdk](https://github.com/tiann/cargo-xdk)
 
+1. 如果你安装的是cargo-xdk
+```sh
+# not cargo-ndk
+cargo install cargo-xdk
+```
+那么你需要把修改下app/rs/build_rs.sh文件
+```
+# 修改
+cargo ndk -t arm64-v8a -o ../src/main/jniLibs build $1
+# 为
+cargo xdk -t arm64-v8a -o ../src/main/jniLibs build $1
+```
+
 可以通过如下命令检查是否成功: `./gradlew cargoBuild`，成功的话可以在 `app/src/main/jniLibs/arm64-v8a` 看到 libtwoyi.so。
 
 ### 集成 rootfs
 
 两仪的 ROM 正在开源中，目前还无法从源码编译；不过可以使用预编译的 ROM。
 
-可以从官方发布的 APK 包里面提取 `rootfs.7z` 然后放置到本项目的 `app/assets` 目录下。
+可以从官方发布的 APK 包里面提取 `rootfs.7z` 然后放置到本项目的 `app/src/main/assets` 目录下。
 
 ### 使用 Android Studio 编译
 
