@@ -22,6 +22,10 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 
+import com.microsoft.appcenter.AppCenter;
+import com.microsoft.appcenter.analytics.Analytics;
+import com.microsoft.appcenter.crashes.Crashes;
+
 import java.io.File;
 import java.lang.reflect.Field;
 
@@ -63,7 +67,13 @@ public class TwoyiApplication extends Application {
         TwoyiSocketServer.getInstance(base).start();
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
+        AppCenter.start(this, "6223c2b1-30ab-4293-8456-ac575420774e",
+                Analytics.class, Crashes.class);
+    }
 
     private static void ensureDir(File file) {
         if (file.exists()) {

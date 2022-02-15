@@ -105,7 +105,6 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.ac_render);
-
         mRootView = findViewById(R.id.root);
 
         mSurfaceView = new SurfaceView(this);
