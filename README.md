@@ -82,10 +82,12 @@ Please refer to [cargo-xdk](https://github.com/tiann/cargo-xdk).
 
 You can check if it is installed by running `./gradlew cargoBuild`. If it succeeded, you will see libtwoyi.so in `app/src/main/jniLibs/arm64-v8a`.
 
+PS. Please use the ndk 22 or lower version, otherwise it may build fail.
+
 ### Integrating rootfs
 
 The ROM of twoyi is being turned into open-source, so you cannot build it now. You can use the prebuilt ROM instead.
-To do that, extract rootfs.7z from the official release apk and copy it to `app/assets`.
+To do that, extract rootfs.7z from the official release apk and copy it to `app/src/main/assets`.
 
 ### Build with Android Studio
 
