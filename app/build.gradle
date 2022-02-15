@@ -82,6 +82,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     annotationProcessor 'androidx.annotation:annotation:1.3.0'
 
+    implementation 'org.apache.commons:commons-compress:1.8'
+
     implementation 'com.hzy:libp7zip:1.7.0'
 //    implementation "com.github.seven332.a7zip:extract:master-SNAPSHOT"
 //    implementation 'com.github.omicronapps:7-Zip-JBinding-4Android:Release-16.02-2.02'

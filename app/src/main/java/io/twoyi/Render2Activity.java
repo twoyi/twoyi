@@ -119,7 +119,9 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
         mLoadingLayout.setVisibility(View.VISIBLE);
         mLoadingView.startAnimation();
 
-        if (!RomUtil.romExist(this)) {
+        if (!RomUtil.romExist(this) || RomUtil.needsUpgrade(this)) {
+            Log.i(TAG, "extracting rom...");
+
             showTipsForFirstBoot();
 
             new Thread(() -> {
