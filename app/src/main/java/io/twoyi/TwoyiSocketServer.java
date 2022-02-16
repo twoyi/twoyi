@@ -22,6 +22,7 @@ import android.content.Context;
 import android.net.LocalServerSocket;
 import android.net.LocalSocket;
 import android.net.LocalSocketAddress;
+import android.os.SystemClock;
 import android.util.Log;
 
 import java.io.IOException;
@@ -32,6 +33,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.twoyi.ui.SettingsActivity;
+import io.twoyi.utils.IOUtils;
 import io.twoyi.utils.UIHelper;
 
 /**
@@ -76,8 +78,9 @@ public class TwoyiSocketServer {
     }
 
     private void start0() {
+        LocalSocket socket = null;
         try {
-            LocalSocket socket = new LocalSocket(LocalSocket.SOCKET_SEQPACKET);
+            socket = new LocalSocket(LocalSocket.SOCKET_SEQPACKET);
             socket.bind(new LocalSocketAddress(SOCK_NAME, LocalSocketAddress.Namespace.ABSTRACT));
             LocalServerSocket localServerSocket = new LocalServerSocket(socket.getFileDescriptor());
 
@@ -88,6 +91,14 @@ public class TwoyiSocketServer {
             }
         } catch (IOException e) {
             Log.e(TAG, "start socket failed", e);
+
+            // start it again
+            SystemClock.sleep(1000);
+
+            start();
+
+        } finally {
+            IOUtils.closeSilently(socket);
         }
     }
 
