@@ -8,6 +8,8 @@ package io.twoyi.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -19,8 +21,16 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
+import com.microsoft.appcenter.crashes.Crashes;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 import io.twoyi.R;
+import io.twoyi.utils.LogEvents;
 import io.twoyi.utils.UIHelper;
 
 /**
@@ -77,6 +87,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             Preference importApp = findPreference(R.string.settings_key_import_app);
             Preference donate = findPreference(R.string.settings_key_donate);
+            Preference sendLog = findPreference(R.string.settings_key_sendlog);
             Preference about = findPreference(R.string.settings_key_about);
 
             importApp.setOnPreferenceClickListener(preference -> {
@@ -92,6 +103,28 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 return false;
             });
+
+            sendLog.setOnPreferenceClickListener(preference -> {
+                Context context = getActivity();
+                byte[] bugreport = LogEvents.getBugreport(context);
+                File tmpLog = new File(context.getCacheDir(), "bugreport.zip");
+                try {
+                    Files.write(tmpLog.toPath(), bugreport);
+                } catch (IOException e) {
+                    Crashes.trackError(e);
+                }
+                Uri uri = FileProvider.getUriForFile(context, "io.twoyi.fileprovider", tmpLog);
+
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareIntent.setDataAndType(uri, "application/zip");
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                context.startActivity(Intent.createChooser(shareIntent, getString(R.string.settings_key_sendlog)));
+
+                return true;
+            });
+
             about.setOnPreferenceClickListener(preference -> {
                 UIHelper.startActivity(getContext(), AboutActivity.class);
                 return true;

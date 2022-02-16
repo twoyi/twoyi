@@ -18,6 +18,11 @@
         android:title="@string/settings_key_donate" />
 
     <Preference
+        android:key="@string/settings_key_sendlog"
+        android:summary="@string/settings_sendlog_summary"
+        android:title="@string/settings_key_sendlog" />
+
+    <Preference
         android:key="@string/settings_key_about"
         android:title="@string/settings_key_about" />
 

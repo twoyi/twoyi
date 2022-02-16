@@ -66,4 +66,6 @@
     <string name="install_failed_reason">安装失败: %1$s</string>
     <string name="look_it">去查看</string>
     <string name="tips_for_android12">您正在 Android 12 上使用两仪，请参阅 Android 12 使用指南，否则将无法正常使用！</string>
+    <string name="settings_key_sendlog">发送日志</string>
+    <string name="settings_sendlog_summary">共享日志给开发者以定位问题</string>
 </resources>

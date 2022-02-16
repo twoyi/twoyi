@@ -68,4 +68,6 @@
     <string name="install_failed_reason">install failed: %1$s</string>
     <string name="look_it">Read it</string>
     <string name="tips_for_android12">You are running on Android 12, please follow the guide to use twoyi.</string>
+    <string name="settings_key_sendlog">Send Log</string>
+    <string name="settings_sendlog_summary">Share the exception log to developer</string>
 </resources>
