@@ -20,6 +20,7 @@ package io.twoyi;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -42,6 +43,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.twoyi.utils.AppKV;
+import io.twoyi.utils.LogEvents;
 import io.twoyi.utils.NavUtils;
 import io.twoyi.utils.RomUtil;
 import io.twoyi.utils.UIHelper;
@@ -177,7 +179,12 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
                 }
 
                 if (!success) {
+                    LogEvents.trackBootFailure(getApplicationContext());
+
                     runOnUiThread(() -> Toast.makeText(getApplicationContext(), R.string.boot_failed, Toast.LENGTH_SHORT).show());
+
+                    // waiting for track
+                    SystemClock.sleep(3000);
 
                     finish();
                     System.exit(0);
