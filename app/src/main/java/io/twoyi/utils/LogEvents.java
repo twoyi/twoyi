@@ -53,7 +53,7 @@ public class LogEvents {
     }
 
     public static File getLogcatFile(Context context) {
-        return new File(context.getFilesDir().getParentFile(), "logcat.txt");
+        return new File(context.getCacheDir(), "logcat.txt");
     }
 
     public static byte[] getBugreport(Context context) {
