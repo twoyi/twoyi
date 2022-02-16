@@ -2,3 +2,4 @@
 rootfs.*
 /release/
 libtwoyi.so
+rom.ini
