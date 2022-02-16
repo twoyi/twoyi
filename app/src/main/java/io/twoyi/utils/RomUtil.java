@@ -58,7 +58,7 @@ public class RomUtil {
     public static RomInfo DEFAULT_ROM_INFO = new RomInfo();
 
     public static boolean romExist(Context context) {
-        File initFile = new File(new File(context.getDataDir(), "rootfs"), "init");
+        File initFile = new File(getRootfsDir(context), "init");
         return initFile.exists();
     }
 
@@ -75,7 +75,7 @@ public class RomUtil {
     }
 
     public static RomInfo getCurrentRomInfo(Context context) {
-        File infoFile = new File(new File(context.getDataDir(), "rootfs"), "rom.ini");
+        File infoFile = new File(getRootfsDir(context), "rom.ini");
         try (FileInputStream inputStream = new FileInputStream(infoFile)) {
             return getRomInfo(inputStream);
         } catch (Throwable e) {
@@ -135,6 +135,14 @@ public class RomUtil {
         System.out.println("extract rootfs, read assets: " + (t2 - t1) + " un7z: " + (t3 - t2) + "ret: " + ret);
     }
 
+    public static File getRootfsDir(Context context) {
+        return new File(context.getDataDir(), "rootfs");
+    }
+
+    public static File getRomSdcardDir(Context context) {
+        return new File(getRootfsDir(context), "sdcard");
+    }
+
     public static boolean isAndroid12() {
         return Build.VERSION.PREVIEW_SDK_INT + Build.VERSION.SDK_INT == Build.VERSION_CODES.S;
     }
@@ -155,4 +163,6 @@ public class RomUtil {
             return DEFAULT_ROM_INFO;
         }
     }
+
+
 }

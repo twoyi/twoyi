@@ -72,7 +72,7 @@ public class LogEvents {
         reportFiles.add(logcatFile);
 
         // tombstones
-        File rootfsDir = new File(context.getFilesDir().getParentFile(), "rootfs");
+        File rootfsDir = RomUtil.getRootfsDir(context);
         File romDataDir = new File(rootfsDir, "data");
         File tombstoneDir = new File(romDataDir, "tombstones");
         File[] tombstones = tombstoneDir.listFiles();
