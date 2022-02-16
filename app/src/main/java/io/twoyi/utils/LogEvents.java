@@ -64,7 +64,7 @@ public class LogEvents {
         List<File> reportFiles = new ArrayList<>();
 
         // init log
-        File initLogFile = new File(context.getFilesDir().getParentFile(), "log.txt");
+        File initLogFile = new File(context.getDataDir(), "log.txt");
         reportFiles.add(initLogFile);
 
         // logcat
@@ -88,8 +88,8 @@ public class LogEvents {
             reportFiles.addAll(Arrays.asList(dropboxs));
         }
 
-        try {
-            for (File f : reportFiles) {
+        for (File f : reportFiles) {
+            try {
                 ZipEntry ze = new ZipEntry(f.getName());
                 zout.putNextEntry(ze);
 
@@ -97,11 +97,10 @@ public class LogEvents {
                 zout.write(bytes, 0, bytes.length);
 
                 zout.closeEntry();
+            } catch (IOException ignored) {
             }
-            zout.close();
-        } catch (IOException e) {
-            Crashes.trackError(e);
         }
+        IOUtils.closeSilently(zout);
 
         return baos.toByteArray();
     }
