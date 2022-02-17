@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,13 +14,15 @@ android {
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
+    def buildSerial = new SimpleDateFormat("MMddHHmm").format(new Date())
+
     defaultConfig {
         applicationId "io.twoyi"
         minSdkVersion 27
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 27
         versionCode 10306
-        versionName "0.3.6"
+        versionName "0.3.6-${buildSerial}"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
