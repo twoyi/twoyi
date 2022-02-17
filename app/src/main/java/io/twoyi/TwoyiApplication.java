@@ -40,29 +40,9 @@ public class TwoyiApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
 
-        // XCrash.init(this, new XCrash.InitParameters().setNativeRethrow(false));
-
         ensureDir(new File(base.getDataDir(), "rootfs/dev/input"));
         ensureDir(new File(base.getDataDir(), "rootfs/dev/socket"));
         ensureDir(new File(base.getDataDir(), "socket"));
-
-        // detele boot_completed flag!
-        new File(base.getDataDir(), "rootfs/boot_completed").delete();
-
-//        Display display = getDisplay();
-//        DisplayMetrics dm = new DisplayMetrics();
-//        display.getRealMetrics(dm);
-//
-//
-//        System.out.println("display, width: " + display.getWidth());
-//        System.out.println("display, heigth: " + display.getHeight());
-//        System.out.println("real, width: " + dm.widthPixels);
-//        System.out.println("real, heigth: " + dm.heightPixels);
-//        System.out.println("xdpi: " + dm.xdpi);
-//        System.out.println("ydpi: " + dm.ydpi);
-//        System.out.println("density: " + dm.density);
-//        System.out.println("densityDpi: " + dm.densityDpi);
-//        System.out.println("statusBar: " + px2dp(getStatusBarHeight(this)));
 
         TwoyiSocketServer.getInstance(base).start();
     }
