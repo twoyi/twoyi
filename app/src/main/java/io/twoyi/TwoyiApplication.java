@@ -73,6 +73,9 @@ public class TwoyiApplication extends Application {
 
         AppCenter.start(this, "6223c2b1-30ab-4293-8456-ac575420774e",
                 Analytics.class, Crashes.class);
+        if (BuildConfig.DEBUG) {
+            AppCenter.setEnabled(false);
+        }
     }
 
     private static void ensureDir(File file) {
