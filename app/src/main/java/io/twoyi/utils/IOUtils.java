@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -154,4 +157,15 @@ public class IOUtils {
         }
     }
 
+    public static boolean deleteDirectory(File directory) {
+        try {
+            Files.walk(directory.toPath())
+                    .sorted(Comparator.reverseOrder())
+                    .map(Path::toFile)
+                    .forEach(File::delete);
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
 }

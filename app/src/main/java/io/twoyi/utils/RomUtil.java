@@ -110,8 +110,10 @@ public class RomUtil {
         return DEFAULT_ROM_INFO;
     }
 
-
     public static void extractRootfs(Context context) {
+
+        // force remove system dir to avoiding wired issues
+        removeSystemPartition(context);
 
         // read assets
         long t1 = SystemClock.elapsedRealtime();
@@ -145,6 +147,13 @@ public class RomUtil {
 
     public static boolean isAndroid12() {
         return Build.VERSION.PREVIEW_SDK_INT + Build.VERSION.SDK_INT == Build.VERSION_CODES.S;
+    }
+
+    private static void removeSystemPartition(Context context) {
+        File rootfsDir = getRootfsDir(context);
+        File systemDir = new File(rootfsDir, "system");
+
+        IOUtils.deleteDirectory(systemDir);
     }
 
     private static RomInfo getRomInfo(InputStream in) {
