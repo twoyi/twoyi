@@ -23,9 +23,11 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Writer;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -45,6 +47,22 @@ public final class RomManager {
     private static final String DEFAULT_INFO = "unknown";
 
     private RomManager() {
+    }
+
+    public static void initRootfs(Context context) {
+        File propFile = getVendorPropFile(context);
+        String language = Locale.getDefault().getLanguage();
+        String country = Locale.getDefault().getCountry();
+
+        Properties properties = new Properties();
+
+        properties.setProperty("persist.sys.language", language);
+        properties.setProperty("persist.sys.country", country);
+
+        try (Writer writer = new FileWriter(propFile)) {
+            properties.store(writer, null);
+        } catch (IOException ignored) {
+        }
     }
 
     public static class RomInfo {
@@ -154,6 +172,14 @@ public final class RomManager {
 
     public static File getRomSdcardDir(Context context) {
         return new File(getRootfsDir(context), "sdcard");
+    }
+
+    public static File getVendorDir(Context context) {
+        return new File(getRootfsDir(context), "vendor");
+    }
+
+    public static File getVendorPropFile(Context context) {
+        return new File(getVendorDir(context), "default.prop");
     }
 
     public static boolean isAndroid12() {

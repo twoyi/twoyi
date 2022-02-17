@@ -129,6 +129,9 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
                 mIsExtracting.set(true);
                 RomManager.extractRootfs(getApplicationContext());
                 mIsExtracting.set(false);
+
+                RomManager.initRootfs(getApplicationContext());
+
                 runOnUiThread(() -> {
                     mRootView.addView(mSurfaceView, 0);
                     showBootingProcedure();
