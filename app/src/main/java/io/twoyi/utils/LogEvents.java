@@ -32,6 +32,9 @@ public class LogEvents {
 
     private static final RuntimeException BOOT_FAILURE = new RuntimeException("BootFailureException");
 
+    public static void trackError(Throwable e) {
+        Crashes.trackError(e);
+    }
     public static void trackError(Throwable e, Map<String, String> properties, Iterable<ErrorAttachmentLog> attachments) {
         Crashes.trackError(e, properties, attachments);
     }

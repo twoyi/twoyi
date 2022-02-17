@@ -65,6 +65,7 @@ import io.twoyi.utils.AppKV;
 import io.twoyi.utils.CacheManager;
 import io.twoyi.utils.IOUtils;
 import io.twoyi.utils.Installer;
+import io.twoyi.utils.LogEvents;
 import io.twoyi.utils.UIHelper;
 import io.twoyi.utils.image.GlideModule;
 
@@ -364,10 +365,9 @@ public class SelectAppActivity extends AppCompatActivity {
         List<File> files = new ArrayList<>();
         ContentResolver contentResolver = getContentResolver();
         for (Uri uri : fileUris) {
-            String lastPathSegment = uri.getLastPathSegment();
             long now = System.currentTimeMillis();
-            File tmpFile = new File(getCacheDir(), now + lastPathSegment + ".apk");
-            Log.i(TAG, "tmpFile: " + tmpFile);
+            File tmpFile = new File(getCacheDir(), now + ".apk");
+            Log.i(TAG, "copyFilesFromUri temp file: " + tmpFile);
             try (InputStream inputStream = contentResolver.openInputStream(uri); OutputStream os = new FileOutputStream(tmpFile)) {
                 byte[] buffer = new byte[1024];
                 int count;
@@ -375,7 +375,8 @@ public class SelectAppActivity extends AppCompatActivity {
                     os.write(buffer, 0, count);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                LogEvents.trackError(e);
+                continue;
             }
 
             files.add(tmpFile);
