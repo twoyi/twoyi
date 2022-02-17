@@ -93,7 +93,13 @@ public class Installer {
 
         String fileArgs = sb.toString();
 
-        String installCommand = String.format("%s -P 20000 -s %s install-multiple -t -r %s", adbPath, connectTarget, fileArgs);
+        String installCommand;
+        if (files.size() == 1) {
+            installCommand = String.format("%s -P 20000 -s %s install -t -r %s", adbPath, connectTarget, fileArgs);
+        } else {
+            // http://aospxref.com/android-10.0.0_r47/xref/system/core/adb/client/adb_install.cpp#447
+            installCommand = String.format("%s -P 20000 -s %s install-multiple -t -r %s", adbPath, connectTarget, fileArgs);
+        }
 
         Log.w(TAG, "installCommand: " + installCommand);
 
