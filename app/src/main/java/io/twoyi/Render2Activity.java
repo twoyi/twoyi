@@ -45,7 +45,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import io.twoyi.utils.AppKV;
 import io.twoyi.utils.LogEvents;
 import io.twoyi.utils.NavUtils;
-import io.twoyi.utils.RomUtil;
+import io.twoyi.utils.RomManager;
 import io.twoyi.utils.UIHelper;
 
 /**
@@ -120,14 +120,14 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
         mLoadingLayout.setVisibility(View.VISIBLE);
         mLoadingView.startAnimation();
 
-        if (!RomUtil.romExist(this) || RomUtil.needsUpgrade(this)) {
+        if (!RomManager.romExist(this) || RomManager.needsUpgrade(this)) {
             Log.i(TAG, "extracting rom...");
 
             showTipsForFirstBoot();
 
             new Thread(() -> {
                 mIsExtracting.set(true);
-                RomUtil.extractRootfs(getApplicationContext());
+                RomManager.extractRootfs(getApplicationContext());
                 mIsExtracting.set(false);
                 runOnUiThread(() -> {
                     mRootView.addView(mSurfaceView, 0);
@@ -251,7 +251,7 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
     private void showAndroid12Tips() {
         boolean showTips = AppKV.getBooleanConfig(this, AppKV.SHOW_ANDROID12_TIPS, true);
 
-        if (!RomUtil.isAndroid12() || !showTips) {
+        if (!RomManager.isAndroid12() || !showTips) {
             return;
         }
 

@@ -32,7 +32,7 @@ import de.psdev.licensesdialog.licenses.MITLicense;
 import de.psdev.licensesdialog.model.Notice;
 import de.psdev.licensesdialog.model.Notices;
 import io.twoyi.R;
-import io.twoyi.utils.RomUtil;
+import io.twoyi.utils.RomManager;
 import io.twoyi.utils.UIHelper;
 import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;
@@ -103,7 +103,7 @@ public class AboutActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException ignored) {
         }
 
-        RomUtil.RomInfo info = RomUtil.getCurrentRomInfo(this);
+        RomManager.RomInfo info = RomManager.getCurrentRomInfo(this);
         versionName = versionName + "-" + info.code;
         version.setTitle(versionName);
 

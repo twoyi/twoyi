@@ -39,7 +39,7 @@ public class LogEvents {
     public static void trackBootFailure(Context context) {
 
         Map<String, String> properties = new HashMap<>();
-        RomUtil.RomInfo info = RomUtil.getCurrentRomInfo(context);
+        RomManager.RomInfo info = RomManager.getCurrentRomInfo(context);
 
         properties.put("rom_ver", String.valueOf(info.code));
         properties.put("rom_author", info.author);
@@ -72,7 +72,7 @@ public class LogEvents {
         reportFiles.add(logcatFile);
 
         // tombstones
-        File rootfsDir = RomUtil.getRootfsDir(context);
+        File rootfsDir = RomManager.getRootfsDir(context);
         File romDataDir = new File(rootfsDir, "data");
         File tombstoneDir = new File(romDataDir, "tombstones");
         File[] tombstones = tombstoneDir.listFiles();

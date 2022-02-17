@@ -22,7 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import io.twoyi.R;
-import io.twoyi.utils.RomUtil;
+import io.twoyi.utils.RomManager;
 
 /**
  * @author weishu
@@ -57,7 +57,7 @@ public class TwoyiDocumentsProvider extends DocumentsProvider {
     @Override
     public Cursor queryRoots(String[] projection) {
 
-        File BASE_DIR = RomUtil.getRomSdcardDir(getContext());
+        File BASE_DIR = RomManager.getRomSdcardDir(getContext());
 
         final MatrixCursor result = new MatrixCursor(projection != null ? projection : DEFAULT_ROOT_PROJECTION);
         final String applicationName = getContext().getString(R.string.app_name);
@@ -178,7 +178,7 @@ public class TwoyiDocumentsProvider extends DocumentsProvider {
     }
 
     private File getRootDir() {
-        return RomUtil.getRomSdcardDir(getContext());
+        return RomManager.getRomSdcardDir(getContext());
     }
 
     private String getRootSummary() {

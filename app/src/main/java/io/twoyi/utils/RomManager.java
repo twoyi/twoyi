@@ -34,13 +34,22 @@ import java.util.Properties;
  * @date 2021/10/22.
  */
 
-public class RomUtil {
+public final class RomManager {
 
-    private static final String TAG = "RomUtil";
+    private static final String TAG = "RomManager";
+
+    private static final String ROOTFS_NAME = "rootfs.7z";
+
+    private static final String ROM_INFO_FILE = "rom.ini";
+
+    private static final String DEFAULT_INFO = "unknown";
+
+    private RomManager() {
+    }
 
     public static class RomInfo {
-        public String author = "unknown";
-        public String version = "unknown";
+        public String author = DEFAULT_INFO;
+        public String version = DEFAULT_INFO;
         public String md5 = "";
         public long code = 0;
 
@@ -75,7 +84,7 @@ public class RomUtil {
     }
 
     public static RomInfo getCurrentRomInfo(Context context) {
-        File infoFile = new File(getRootfsDir(context), "rom.ini");
+        File infoFile = new File(getRootfsDir(context), ROM_INFO_FILE);
         try (FileInputStream inputStream = new FileInputStream(infoFile)) {
             return getRomInfo(inputStream);
         } catch (Throwable e) {
@@ -103,7 +112,7 @@ public class RomUtil {
 
     public static RomInfo getRomInfoFromAssets(Context context) {
         AssetManager assets = context.getAssets();
-        try (InputStream open = assets.open("rom.ini")) {
+        try (InputStream open = assets.open(ROM_INFO_FILE)) {
             return getRomInfo(open);
         } catch (Throwable ignored) {
         }
@@ -117,8 +126,8 @@ public class RomUtil {
 
         // read assets
         long t1 = SystemClock.elapsedRealtime();
-        File rootfs7z = context.getFileStreamPath("rootfs.7z");
-        try (InputStream inputStream = new BufferedInputStream(context.getAssets().open("rootfs.7z"));
+        File rootfs7z = context.getFileStreamPath(ROOTFS_NAME);
+        try (InputStream inputStream = new BufferedInputStream(context.getAssets().open(ROOTFS_NAME));
              OutputStream os = new BufferedOutputStream(new FileOutputStream(rootfs7z))) {
             byte[] buffer = new byte[10240];
             int count;
@@ -130,11 +139,13 @@ public class RomUtil {
         }
         long t2 = SystemClock.elapsedRealtime();
 
-        int ret = P7ZipApi.executeCommand(String.format(Locale.US, "7z x -mmt=%d -aoa '%s' '-o%s'", Runtime.getRuntime().availableProcessors(), rootfs7z, context.getDataDir()));
+        int cpu = Runtime.getRuntime().availableProcessors();
+        int ret = P7ZipApi.executeCommand(String.format(Locale.US, "7z x -mmt=%d -aoa '%s' '-o%s'",
+                cpu, rootfs7z, context.getDataDir()));
 
         long t3 = SystemClock.elapsedRealtime();
 
-        System.out.println("extract rootfs, read assets: " + (t2 - t1) + " un7z: " + (t3 - t2) + "ret: " + ret);
+        Log.i(TAG, "extract rootfs, read assets: " + (t2 - t1) + " un7z: " + (t3 - t2) + "ret: " + ret);
     }
 
     public static File getRootfsDir(Context context) {
@@ -172,6 +183,4 @@ public class RomUtil {
             return DEFAULT_ROM_INFO;
         }
     }
-
-
 }
