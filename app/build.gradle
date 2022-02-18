@@ -21,8 +21,8 @@ android {
         minSdkVersion 27
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 27
-        versionCode 10307
-        versionName "0.3.7-${buildSerial}"
+        versionCode 10308
+        versionName "0.3.8-${buildSerial}"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -35,6 +35,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
