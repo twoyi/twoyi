@@ -62,7 +62,10 @@ public class Installer {
 
         Shell.Result result = shell.newJob().add(envCmd).add(adbCommand).to(new ArrayList<>(), new ArrayList<>()).exec();
 
-        Log.w(TAG, "success: " + result.isSuccess());
+        String errMsg = Arrays.toString(result.getErr().toArray(new String[0]));
+        String outMsg = Arrays.toString(result.getOut().toArray(new String[0]));
+
+        Log.w(TAG, "success: " + result.isSuccess() + " err: " + errMsg + " out: " + outMsg);
 
         boolean connected = false;
         for (String s : result.getOut()) {
