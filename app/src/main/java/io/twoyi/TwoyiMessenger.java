@@ -35,6 +35,8 @@ public class TwoyiMessenger {
 
     public static final String SWITCH_HOST = "SWITCH_HOST";
 
+    public static final String PING = "PING";
+
     private static final String SOCK_NAME = "TWOYI_SOCK";
 
     private volatile OutputStreamWriter mWriter;

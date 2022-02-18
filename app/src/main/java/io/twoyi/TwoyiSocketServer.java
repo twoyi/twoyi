@@ -74,6 +74,15 @@ public class TwoyiSocketServer {
     public void start() {
         if (mStarted.compareAndSet(false, true)) {
             EXECUTOR.submit(this::start0);
+
+            EXECUTOR.submit(()-> {
+
+                // some device restrict local socket, just connect it to prompt the permission dialog.
+                SystemClock.sleep(3000);
+
+                // SEND PING
+                TwoyiMessenger.getInstance().send(TwoyiMessenger.PING);
+            });
         }
     }
 
