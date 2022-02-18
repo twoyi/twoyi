@@ -30,6 +30,7 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.TimeZone;
 
 /**
  * @author weishu
@@ -58,6 +59,11 @@ public final class RomManager {
 
         properties.setProperty("persist.sys.language", language);
         properties.setProperty("persist.sys.country", country);
+
+        TimeZone timeZone = TimeZone.getDefault();
+        String timeZoneID = timeZone.getID();
+        Log.i(TAG, "timezone: " + timeZoneID);
+        properties.setProperty("persist.sys.timezone", timeZoneID);
 
         try (Writer writer = new FileWriter(propFile)) {
             properties.store(writer, null);
