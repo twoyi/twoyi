@@ -91,6 +91,17 @@ public class LogEvents {
             reportFiles.addAll(Arrays.asList(dropboxs));
         }
 
+        // proc info
+        File procInfo = new File(context.getCacheDir(), "proc.txt");
+        ProcessBuilder pb = new ProcessBuilder("ps", "-ef");
+        pb.redirectOutput(procInfo);
+        try {
+            Process process = pb.start();
+            process.waitFor();
+            reportFiles.add(procInfo);
+        } catch (Throwable ignored) {
+        }
+
         for (File f : reportFiles) {
             try {
                 ZipEntry ze = new ZipEntry(f.getName());
