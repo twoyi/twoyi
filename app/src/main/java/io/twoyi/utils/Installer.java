@@ -54,7 +54,7 @@ public class Installer {
 
         String connectTarget = "localhost:22122";
 
-        final int ADB_PORT = 20000;
+        final int ADB_PORT = 9563;
 
         String adbCommand = String.format(Locale.US, "%s -P %d connect %s", adbPath, ADB_PORT, connectTarget);
 
