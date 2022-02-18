@@ -61,6 +61,9 @@ public class Installer {
         String envPath = context.getCacheDir().getAbsolutePath();
         String envCmd = String.format("export TMPDIR=%s;export HOME=%s;", envPath, envPath);
 
+        String adbServerCommand = String.format(Locale.US, "%s -P %d nodaemon server", adbPath, ADB_PORT);
+        ShellUtil.newSh().newJob().add(envCmd).add(adbServerCommand).submit();
+
         Shell shell = ShellUtil.newSh();
 
         Shell.Result result = shell.newJob().add(envCmd).add(adbCommand).to(new ArrayList<>(), new ArrayList<>()).exec();
