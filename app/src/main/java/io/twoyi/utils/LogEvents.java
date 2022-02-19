@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,16 +62,33 @@ public class LogEvents {
         return new File(context.getCacheDir(), "logcat.txt");
     }
 
+    private static class ReportItem {
+        File file;
+        String entry;
+
+        public static ReportItem create(File file, String entry) {
+            ReportItem item = new ReportItem();
+            item.file = file;
+            item.entry = entry;
+            return item;
+        }
+
+        public static ReportItem create(File file) {
+            return create(file, file.getName());
+        }
+    }
+
     public static byte[] getBugreport(Context context) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ZipOutputStream zout = new ZipOutputStream(baos);
 
-        List<File> reportFiles = new ArrayList<>();
+        // file, entry
+        List<ReportItem> reportItems = new ArrayList<>();
 
         // init log
         File initLogFile = new File(context.getDataDir(), "log.txt");
-        reportFiles.add(initLogFile);
+        reportItems.add(ReportItem.create(initLogFile));
 
         // logcat
         File logcatFile = getLogcatFile(context);
@@ -83,7 +99,7 @@ public class LogEvents {
             process.waitFor();
         } catch (Throwable ignored) {}
 
-        reportFiles.add(logcatFile);
+        reportItems.add(ReportItem.create(logcatFile));
 
         // tombstones
         File rootfsDir = RomManager.getRootfsDir(context);
@@ -91,7 +107,9 @@ public class LogEvents {
         File tombstoneDir = new File(romDataDir, "tombstones");
         File[] tombstones = tombstoneDir.listFiles();
         if (tombstones != null) {
-            reportFiles.addAll(Arrays.asList(tombstones));
+            for (File tombstone : tombstones) {
+                reportItems.add(ReportItem.create(tombstone, "tombstones/" + tombstone.getName()));
+            }
         }
 
         // dropboxs
@@ -99,7 +117,9 @@ public class LogEvents {
         File dropboxDir = new File(dataSystemDir, "dropbox");
         File[] dropboxs = dropboxDir.listFiles();
         if (dropboxs != null) {
-            reportFiles.addAll(Arrays.asList(dropboxs));
+            for (File dropbox : dropboxs) {
+                reportItems.add(ReportItem.create(dropbox, "dropbox/" + dropbox.getName()));
+            }
         }
 
         // proc info
@@ -109,7 +129,7 @@ public class LogEvents {
         try {
             Process process = pb.start();
             process.waitFor();
-            reportFiles.add(procInfo);
+            reportItems.add(ReportItem.create(procInfo));
         } catch (Throwable ignored) {
         }
 
@@ -132,14 +152,14 @@ public class LogEvents {
             pw.println("VERSION: " + packageInfo.versionName);
         } catch (Throwable ignored) {}
 
-        reportFiles.add(buildInfo);
+        reportItems.add(ReportItem.create(buildInfo));
 
-        for (File f : reportFiles) {
+        for (ReportItem item : reportItems) {
             try {
-                ZipEntry ze = new ZipEntry(f.getName());
+                ZipEntry ze = new ZipEntry(item.entry);
                 zout.putNextEntry(ze);
 
-                byte[] bytes = Files.readAllBytes(f.toPath());
+                byte[] bytes = Files.readAllBytes(item.file.toPath());
                 zout.write(bytes, 0, bytes.length);
 
                 zout.closeEntry();
