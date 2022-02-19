@@ -71,6 +71,17 @@ public final class RomManager {
         }
     }
 
+    public static void ensureBootDir(Context context) {
+
+        // <rootdir>/dev/
+        File devDir = new File(getRootfsDir(context), "dev");
+        ensureDir(new File(devDir, "input"));
+        ensureDir(new File(devDir, "socket"));
+        ensureDir(new File(devDir, "maps"));
+
+        ensureDir(new File(context.getDataDir(), "socket"));
+    }
+
     public static class RomInfo {
         public String author = DEFAULT_INFO;
         public String version = DEFAULT_INFO;
@@ -214,5 +225,13 @@ public final class RomManager {
             Log.e(TAG, "read rom info err", e);
             return DEFAULT_ROM_INFO;
         }
+    }
+
+    private static void ensureDir(File file) {
+        if (file.exists()) {
+            return;
+        }
+        //noinspection ResultOfMethodCallIgnored
+        file.mkdirs();
     }
 }

@@ -26,8 +26,9 @@ import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
 
-import java.io.File;
 import java.lang.reflect.Field;
+
+import io.twoyi.utils.RomManager;
 
 /**
  * @author weishu
@@ -40,9 +41,7 @@ public class TwoyiApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
 
-        ensureDir(new File(base.getDataDir(), "rootfs/dev/input"));
-        ensureDir(new File(base.getDataDir(), "rootfs/dev/socket"));
-        ensureDir(new File(base.getDataDir(), "socket"));
+        RomManager.ensureBootDir(base);
 
         TwoyiSocketServer.getInstance(base).start();
     }
@@ -56,14 +55,6 @@ public class TwoyiApplication extends Application {
         if (BuildConfig.DEBUG) {
             AppCenter.setEnabled(false);
         }
-    }
-
-    private static void ensureDir(File file) {
-        if (file.exists()) {
-            return;
-        }
-        //noinspection ResultOfMethodCallIgnored
-        file.mkdirs();
     }
 
     static int statusBarHeight = -1;
