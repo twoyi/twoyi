@@ -7,13 +7,17 @@
 package io.twoyi.utils;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.os.Build;
 
 import com.microsoft.appcenter.crashes.Crashes;
 import com.microsoft.appcenter.crashes.ingestion.models.ErrorAttachmentLog;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -101,6 +105,27 @@ public class LogEvents {
             reportFiles.add(procInfo);
         } catch (Throwable ignored) {
         }
+
+        // build.prop
+        File buildInfo = new File(context.getCacheDir(), "basic.txt");
+        try (PrintWriter pw = new PrintWriter(new FileWriter(buildInfo))) {
+            pw.println("BRAND: " + Build.BRAND);
+            pw.println("MODEL: " + Build.MODEL);
+            pw.println("PRODUCT: " + Build.PRODUCT);
+            pw.println("MANUFACTURER: " + Build.MANUFACTURER);
+            pw.println("SDK: " + Build.VERSION.SDK_INT);
+            pw.println("PREVIEW_SDK: " + Build.VERSION.PREVIEW_SDK_INT);
+            pw.println("FINGERPRINT: " + Build.FINGERPRINT);
+            pw.println("DEVICE: " + Build.DEVICE);
+
+            RomManager.RomInfo romInfo = RomManager.getCurrentRomInfo(context);
+            pw.println("ROM: " + romInfo.version);
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            pw.println("PACKAGE: " + packageInfo.packageName);
+            pw.println("VERSION: " + packageInfo.versionName);
+        } catch (Throwable ignored) {}
+
+        reportFiles.add(buildInfo);
 
         for (File f : reportFiles) {
             try {
