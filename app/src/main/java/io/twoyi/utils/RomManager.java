@@ -158,6 +158,7 @@ public final class RomManager {
 
         // force remove system dir to avoiding wired issues
         removeSystemPartition(context);
+        removeVendorPartition(context);
 
         // read assets
         long t1 = SystemClock.elapsedRealtime();
@@ -203,11 +204,19 @@ public final class RomManager {
         return Build.VERSION.PREVIEW_SDK_INT + Build.VERSION.SDK_INT == Build.VERSION_CODES.S;
     }
 
-    private static void removeSystemPartition(Context context) {
+    private static void removePartition(Context context, String partition) {
         File rootfsDir = getRootfsDir(context);
-        File systemDir = new File(rootfsDir, "system");
+        File systemDir = new File(rootfsDir, partition);
 
         IOUtils.deleteDirectory(systemDir);
+    }
+
+    private static void removeSystemPartition(Context context) {
+        removePartition(context, "system");
+    }
+
+    private static void removeVendorPartition(Context context) {
+        removePartition(context, "vendor");
     }
 
     private static RomInfo getRomInfo(InputStream in) {
