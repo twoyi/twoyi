@@ -156,7 +156,7 @@ public class BootLogTexture extends TextureView implements TextureView.SurfaceTe
             };
 
             Shell shell = ShellUtil.newSh();
-            shell.newJob().add("logcat -v brief *I").to(callbackList).submit();
+            shell.newJob().add("timeout -s 9 30 logcat -v brief *I").to(callbackList).submit();
 
             while (mRendering.get()) {
                 render();
