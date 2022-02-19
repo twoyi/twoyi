@@ -76,6 +76,13 @@ public class LogEvents {
 
         // logcat
         File logcatFile = getLogcatFile(context);
+        ProcessBuilder logcat = new ProcessBuilder("logcat", "-d");
+        logcat.redirectOutput(logcatFile);
+        try {
+            Process process = logcat.start();
+            process.waitFor();
+        } catch (Throwable ignored) {}
+
         reportFiles.add(logcatFile);
 
         // tombstones

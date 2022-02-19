@@ -38,13 +38,11 @@ import androidx.annotation.Nullable;
 import com.topjohnwu.superuser.CallbackList;
 import com.topjohnwu.superuser.Shell;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import io.twoyi.utils.LogEvents;
 import io.twoyi.utils.ShellUtil;
 
 /**
@@ -61,8 +59,6 @@ public class BootLogTexture extends TextureView implements TextureView.SurfaceTe
 
     private final SparseArray<Paint> mPaints = new SparseArray<>();
     private final Paint mDefaultPaint = new Paint();
-
-    private File mLogFile;
 
     private static final SparseIntArray COLOR_MAP = new SparseIntArray();
 
@@ -115,8 +111,6 @@ public class BootLogTexture extends TextureView implements TextureView.SurfaceTe
         }
 
         setPaint(mDefaultPaint, Color.WHITE);
-
-        mLogFile = LogEvents.getLogcatFile(context);
     }
 
     private void setPaint(Paint paint, int color) {
@@ -162,7 +156,7 @@ public class BootLogTexture extends TextureView implements TextureView.SurfaceTe
             };
 
             Shell shell = ShellUtil.newSh();
-            shell.newJob().add("logcat -v brief *I | tee " + mLogFile.getAbsolutePath()).to(callbackList).submit();
+            shell.newJob().add("logcat -v brief *I").to(callbackList).submit();
 
             while (mRendering.get()) {
                 render();
