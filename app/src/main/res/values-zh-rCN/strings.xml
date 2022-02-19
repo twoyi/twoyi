@@ -52,7 +52,7 @@
     <string name="create_app_activity">导入应用</string>
     <string name="check_file_invlid_apk">安装包解析错误！</string>
     <string name="check_file_create_self_tip">小伙子，你这个想法很有前途 :)</string>
-    <string name="create_app_from_file">从APK文件创建</string>
+    <string name="import_app_from_file">从APK文件导入</string>
     <string name="unsupported_for_32bit_app">不支持 32 位的应用哦 :(</string>
     <string name="please_install_one_by_one">暂不支持同时安装多个应用！</string>
     <string name="install_success">安装成功!</string>
@@ -60,7 +60,7 @@
     <string name="title_settings">设置</string>
     <string name="settings_key_about">关于</string>
     <string name="settings_key_import_app">导入应用</string>
-    <string name="settings_import_app_summary">从外部系统中导入应用至 twoyi</string>
+    <string name="settings_import_app_summary">从外部系统中导入应用至两仪</string>
     <string name="settings_key_donate">捐赠</string>
     <string name="settings_donate_summary">予人玫瑰，手有余香~</string>
     <string name="install_failed_reason">安装失败: %1$s</string>
@@ -68,5 +68,6 @@
     <string name="tips_for_android12">您正在 Android 12 上使用两仪，请参阅 Android 12 使用指南，否则将无法正常使用！</string>
     <string name="settings_key_sendlog">发送日志</string>
     <string name="settings_sendlog_summary">共享日志给开发者以定位问题</string>
-    <string name="sdcard_of_twoyi">两仪的 Sdcard</string>
+    <string name="sdcard_of_twoyi">两仪的 sdcard</string>
+    <string name="confirm_for_android12">请务必确认您已经按照教程设置！！否则系统可能将无法启动！！！</string>
 </resources>

@@ -54,7 +54,7 @@
     <string name="create_app_activity">Import App</string>
     <string name="check_file_invlid_apk">Can not parse the APK file!</string>
     <string name="check_file_create_self_tip">Boy, your idea is promising :)</string>
-    <string name="create_app_from_file">Create app from APK</string>
+    <string name="import_app_from_file">Import app from APK</string>
     <string name="unsupported_for_32bit_app">32 bit app is not supported :(</string>
     <string name="please_install_one_by_one">Please install app one by one!</string>
     <string name="install_success">Install success!</string>
@@ -70,5 +70,6 @@
     <string name="tips_for_android12">You are running on Android 12, please follow the guide to use twoyi.</string>
     <string name="settings_key_sendlog">Send Log</string>
     <string name="settings_sendlog_summary">Share the exception log to developer</string>
-    <string name="sdcard_of_twoyi">Sdcard of twoyi</string>
+    <string name="sdcard_of_twoyi">sdcard of twoyi</string>
+    <string name="confirm_for_android12" >Make sure you\'ve followed the tutorial to set it up!!Otherwise the system may fail to boot!!!</string>
 </resources>

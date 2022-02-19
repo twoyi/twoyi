@@ -56,12 +56,12 @@
         android:layout_gravity="bottom|end"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="100dp"
-        android:contentDescription="@string/create_app_from_file"
+        android:contentDescription="@string/import_app_from_file"
         android:src="@drawable/ic_add"
         app:fabSize="normal"
         app:fab_colorNormal="@color/colorPrimary"
         app:fab_colorPressed="@color/colorPrimaryDark"
         app:fab_colorRipple="@color/colorPrimaryOpacity"
-        app:fab_label="@string/create_app_from_file"
+        app:fab_label="@string/import_app_from_file"
         app:fab_size="normal" />
 </FrameLayout>
