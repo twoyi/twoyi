@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  -->
+
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:shortcutId="settings"
+        android:shortcutLongLabel="@string/title_settings"
+        android:shortcutShortLabel="@string/title_settings">
+
+        <categories android:name="android.shortcut.conversation" />
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="io.twoyi.ui.SettingsActivity"
+            android:targetPackage="io.twoyi" />
+    </shortcut>
+
+</shortcuts>
