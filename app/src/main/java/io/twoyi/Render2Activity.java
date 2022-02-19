@@ -120,6 +120,15 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
         mLoadingLayout.setVisibility(View.VISIBLE);
         mLoadingView.startAnimation();
 
+        if (checkForAndroid12()) {
+            bootSystem();
+        }
+
+        mSurfaceView.setOnTouchListener(this);
+
+    }
+
+    private void bootSystem() {
         if (!RomManager.romExist(this) || RomManager.needsUpgrade(this)) {
             Log.i(TAG, "extracting rom...");
 
@@ -141,10 +150,6 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
             mRootView.addView(mSurfaceView, 0);
             showBootingProcedure();
         }
-
-        mSurfaceView.setOnTouchListener(this);
-
-        showAndroid12Tips();
     }
 
     private void showTipsForFirstBoot() {
@@ -251,11 +256,12 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
         return fps;
     }
 
-    private void showAndroid12Tips() {
+    // 返回 true 代表不是 Android 12，或者允许用户启动
+    private boolean checkForAndroid12() {
         boolean showTips = AppKV.getBooleanConfig(this, AppKV.SHOW_ANDROID12_TIPS, true);
 
         if (!RomManager.isAndroid12() || !showTips) {
-            return;
+            return true;
         }
 
         UIHelper.getDialogBuilder(this)
@@ -265,10 +271,38 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
                 .setPositiveButton(R.string.look_it, ((dialog, which) -> {
                     UIHelper.visitSite(this, "https://twoyi.app/guide/android-12.html");
                     dialog.dismiss();
+
+                    finish();
                 }))
                 .setNegativeButton(R.string.donate_never_show, (dialog, which) -> {
-                    AppKV.setBooleanConfig(this, AppKV.SHOW_ANDROID12_TIPS, false);
                     dialog.dismiss();
+
+                    confirmForAndroid12();
+                })
+                .show();
+
+        return false;
+    }
+
+    private void confirmForAndroid12() {
+        UIHelper.getDialogBuilder(this)
+                .setTitle(android.R.string.dialog_alert_title)
+                .setCancelable(false)
+                .setMessage(R.string.confirm_for_android12)
+                .setPositiveButton(R.string.i_confirm_it, (((dialog1, which1) -> {
+
+                    dialog1.dismiss();
+
+                    AppKV.setBooleanConfig(this, AppKV.SHOW_ANDROID12_TIPS, false);
+
+                    // 点不再展示才开始启动系统
+                    bootSystem();
+                })))
+                .setNegativeButton(R.string.look_it, (dialog12, which12) -> {
+                    UIHelper.visitSite(Render2Activity.this, "https://twoyi.app/guide/android-12.html");
+                    dialog12.dismiss();
+
+                    finish();
                 })
                 .show();
     }
