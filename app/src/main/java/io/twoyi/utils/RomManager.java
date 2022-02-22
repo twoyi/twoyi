@@ -7,6 +7,7 @@
 package io.twoyi.utils;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.SystemClock;
@@ -28,6 +29,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.TimeZone;
@@ -46,6 +50,8 @@ public final class RomManager {
     private static final String ROM_INFO_FILE = "rom.ini";
 
     private static final String DEFAULT_INFO = "unknown";
+
+    private static final String LOADER_FILE = "libloader.so";
 
     private RomManager() {
     }
@@ -71,7 +77,7 @@ public final class RomManager {
         }
     }
 
-    public static void ensureBootDir(Context context) {
+    public static void ensureBootFiles(Context context) {
 
         // <rootdir>/dev/
         File devDir = new File(getRootfsDir(context), "dev");
@@ -80,6 +86,19 @@ public final class RomManager {
         ensureDir(new File(devDir, "maps"));
 
         ensureDir(new File(context.getDataDir(), "socket"));
+
+        createLoaderSymlink(context);
+    }
+
+    private static void createLoaderSymlink(Context context) {
+        Path loaderSymlink = new File(context.getDataDir(), "loader64").toPath();
+        String loaderPath = getLoaderPath(context);
+        try {
+            Files.deleteIfExists(loaderSymlink);
+            Files.createSymbolicLink(loaderSymlink, Paths.get(loaderPath));
+        } catch (IOException e) {
+            throw new RuntimeException("symlink loader failed.", e);
+        }
     }
 
     public static class RomInfo {
@@ -125,6 +144,11 @@ public final class RomManager {
         } catch (Throwable e) {
             return DEFAULT_ROM_INFO;
         }
+    }
+
+    public static String getLoaderPath(Context context) {
+        ApplicationInfo applicationInfo = context.getApplicationInfo();
+        return new File(applicationInfo.nativeLibraryDir, LOADER_FILE).getAbsolutePath();
     }
 
     public static RomInfo getRomInfo(File rom) {

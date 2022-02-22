@@ -27,7 +27,7 @@ import android.view.Surface;
  */
 public class Renderer {
 
-    public static native void init(Surface surface, float xdpi, float ydpi, int fps);
+    public static native void init(Surface surface, String loader, float xdpi, float ydpi, int fps);
 
     public static native void resetWindow(Surface surface, int top, int left, int width, int height);
 

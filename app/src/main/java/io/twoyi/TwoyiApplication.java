@@ -41,7 +41,7 @@ public class TwoyiApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
 
-        RomManager.ensureBootDir(base);
+        RomManager.ensureBootFiles(base);
 
         TwoyiSocketServer.getInstance(base).start();
     }

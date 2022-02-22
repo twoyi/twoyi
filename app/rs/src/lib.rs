@@ -3,7 +3,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 use jni::objects::JValue;
-use jni::sys::{jclass, jfloat, jint, jobject, JNI_ERR};
+use jni::sys::{jclass, jfloat, jint, jobject, JNI_ERR, jstring};
 use jni::JNIEnv;
 use jni::{JavaVM, NativeMethod};
 use log::{error, info, Level, debug};
@@ -42,6 +42,7 @@ pub fn renderer_init(
     env: JNIEnv,
     _clz: jclass,
     surface: jobject,
+    loader: jstring,
     xdpi: jfloat,
     ydpi: jfloat,
     fps: jint,
@@ -92,12 +93,14 @@ pub fn renderer_init(
             }
         });
 
+        let loader_path: String = env.get_string(loader.into()).unwrap().into();
         let working_dir = "/data/data/io.twoyi/rootfs";
         let log_path = "/data/data/io.twoyi/log.txt";
         let outputs = File::create(log_path).unwrap();
         let errors = outputs.try_clone().unwrap();
         let _ = Command::new("./init")
             .current_dir(working_dir)
+            .env("TYLOADER", loader_path)
             .stdout(Stdio::from(outputs))
             .stderr(Stdio::from(errors))
             .spawn();
@@ -192,7 +195,7 @@ unsafe fn JNI_OnLoad(jvm: JavaVM, _reserved: *mut c_void) -> jint {
 
     let class_name: &str = "io/twoyi/Renderer";
     let jni_methods = [
-        jni_method!(init, renderer_init, "(Landroid/view/Surface;FFI)V"),
+        jni_method!(init, renderer_init, "(Landroid/view/Surface;Ljava/lang/String;FFI)V"),
         jni_method!(
             resetWindow,
             renderer_reset_window,
