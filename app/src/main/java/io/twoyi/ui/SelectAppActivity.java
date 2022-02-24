@@ -601,7 +601,10 @@ public class SelectAppActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), R.string.unsupported_for_32bit_app, Toast.LENGTH_SHORT).show();
                 return;
             }
-            mSelectItem.selected = !mSelectItem.selected;
+
+            for (int i = 0; i < mDisplayItems.size(); i++) {
+                mDisplayItems.get(i).selected = position == i;
+            }
 
             notifyDataSetChanged();
         }
