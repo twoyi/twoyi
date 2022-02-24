@@ -14,6 +14,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.hzy.libp7zip.P7ZipApi;
+import com.topjohnwu.superuser.Shell;
 
 import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry;
 import org.apache.commons.compress.archivers.sevenz.SevenZFile;
@@ -88,6 +89,8 @@ public final class RomManager {
         ensureDir(new File(context.getDataDir(), "socket"));
 
         createLoaderSymlink(context);
+
+        killOrphanProcess();
     }
 
     private static void createLoaderSymlink(Context context) {
@@ -99,6 +102,11 @@ public final class RomManager {
         } catch (IOException e) {
             throw new RuntimeException("symlink loader failed.", e);
         }
+    }
+
+    private static void killOrphanProcess() {
+        Shell shell = ShellUtil.newSh();
+        shell.newJob().add("ps -ef | awk '{if($3==1) print $2}' | xargs kill -9").exec();
     }
 
     public static class RomInfo {
