@@ -15,11 +15,13 @@ import android.content.SharedPreferences;
  */
 public class AppKV {
 
+
     private static final String PREF_NAME = "app_kv";
 
     public static final String ADD_APP_NOT_SHOW_SYSTEM= "add_app_not_show_system";
     public static final String ADD_APP_NOT_SHOW_ADDED = "add_app_not_show_added";
     public static final String SHOW_ANDROID12_TIPS = "show_android12_tips_v2";
+    public static final String ADD_APP_NOT_SHOW_32BIT = "add_app_not_show_32bit";
 
     public static boolean getBooleanConfig(Context context,  String key, boolean fallback) {
         return getPref(context).getBoolean(key, fallback);

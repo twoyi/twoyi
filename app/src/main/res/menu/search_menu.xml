@@ -21,7 +21,15 @@
             android:checkable="true"
             android:icon="@android:drawable/ic_menu_preferences"
             android:title="@string/menu_not_show_system"
+            checkable="true"
             android:titleCondensed="Options" />
 
+        <item
+            android:id="@+id/menu_not_show_32bit"
+            android:checkable="true"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:title="@string/menu_not_show_32bit"
+            android:checked="true"
+            android:titleCondensed="Options" />
     </group>
 </menu>

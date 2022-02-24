@@ -71,4 +71,5 @@
     <string name="sdcard_of_twoyi">两仪的 sdcard</string>
     <string name="confirm_for_android12">请务必确认您已经按照教程设置！！否则系统可能将无法启动！！！</string>
     <string name="i_confirm_it">我已确认</string>
+    <string name="menu_not_show_32bit">不显示 32 位应用</string>
 </resources>

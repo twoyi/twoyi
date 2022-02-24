@@ -73,4 +73,5 @@
     <string name="sdcard_of_twoyi">sdcard of twoyi</string>
     <string name="confirm_for_android12" >Make sure you\'ve followed the tutorial to set it up!!Otherwise the system may fail to boot!!!</string>
     <string name="i_confirm_it">I confirm it</string>
+    <string name="menu_not_show_32bit">Don\'t show 32bit apps</string>
 </resources>

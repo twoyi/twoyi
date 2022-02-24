@@ -34,7 +34,9 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.jdeferred.android.AndroidDeferredManager;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -378,5 +380,23 @@ public class UIHelper {
         long start = SystemClock.elapsedRealtime();
         Set<String> abIsFromApk = getABIsFromApk(apk);
         return isVM64(abIsFromApk);
+    }
+
+    @SuppressWarnings("JavaReflectionMemberAccess")
+    @SuppressLint("DiscouragedPrivateApi")
+    public static boolean isAppSupport64bit(ApplicationInfo info) {
+        try {
+            // fast path, the isApk64 is too heavy!
+            Field primaryCpuAbiField = ApplicationInfo.class.getDeclaredField("primaryCpuAbi");
+            String primaryCpuAbi = (String) primaryCpuAbiField.get(info);
+            if (primaryCpuAbi == null) {
+                // no native libs, support!
+                return true;
+            }
+
+            return Arrays.asList("arm64-v8a", "x86_64").contains(primaryCpuAbi.toLowerCase());
+        } catch (Throwable e) {
+            return isApk64(info.sourceDir);
+        }
     }
 }

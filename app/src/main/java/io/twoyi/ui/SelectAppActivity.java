@@ -248,7 +248,8 @@ public class SelectAppActivity extends AppCompatActivity {
             return false;
         });
 
-        MenuItem menuItem = setFilterMenuItem(menu, R.id.menu_not_show_system, AppKV.ADD_APP_NOT_SHOW_SYSTEM, false);
+        setFilterMenuItem(menu, R.id.menu_not_show_system, AppKV.ADD_APP_NOT_SHOW_SYSTEM, true);
+        setFilterMenuItem(menu, R.id.menu_not_show_32bit, AppKV.ADD_APP_NOT_SHOW_32BIT, true);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -444,8 +445,8 @@ public class SelectAppActivity extends AppCompatActivity {
 
             boolean directlyAdd = true;
 
-            boolean noSystemApps = AppKV.getBooleanConfig(getApplicationContext(), AppKV.ADD_APP_NOT_SHOW_SYSTEM, false);
-            Set<String> allAppPackages = new HashSet<>();
+            boolean noSystemApps = AppKV.getBooleanConfig(getApplicationContext(), AppKV.ADD_APP_NOT_SHOW_SYSTEM, true);
+            boolean no32BitApps = AppKV.getBooleanConfig(getApplicationContext(), AppKV.ADD_APP_NOT_SHOW_32BIT, true);
 
             for (ApplicationInfo app : apps) {
                 // 自己忽略
@@ -466,6 +467,12 @@ public class SelectAppActivity extends AppCompatActivity {
                     if (noSystemApps && !specified) {
                         // magisk 模式如果设置了 "不显示系统" 也忽略
                         // 如果是从别的地方跳转过来的，那么忽略
+                        continue;
+                    }
+                }
+
+                if (no32BitApps) {
+                    if (!UIHelper.isAppSupport64bit(app)) {
                         continue;
                     }
                 }
