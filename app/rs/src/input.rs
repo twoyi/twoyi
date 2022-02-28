@@ -160,15 +160,15 @@ pub fn handle_touch(ev: MotionEvent) {
                 while index != MAX_POINTERS {
                     let mt = G_INPUT_MT.lock().unwrap();
                     if mt[index] != 0 {
-                        let p = ev.pointer_at_index(index);
-                        let x = p.x();
-                        let y = p.y();
+                        let x = pointer.x();
+                        let y = pointer.y();
+                        let pressure = pointer.pressure();
 
                         input_event_write(fd, EV_ABS, ABS_MT_SLOT, index.try_into().unwrap());
                         input_event_write(fd, EV_ABS, ABS_MT_POSITION_X, x as i32);
                         input_event_write(fd, EV_ABS, ABS_MT_POSITION_Y, y as i32);
 
-                        input_event_write(fd, EV_ABS, ABS_MT_PRESSURE, p.pressure() as i32);
+                        input_event_write(fd, EV_ABS, ABS_MT_PRESSURE, pressure as i32);
 
                         input_event_write(fd, EV_SYN, SYN_REPORT, SYN_REPORT);
                     }
