@@ -236,7 +236,7 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
         WindowManager windowManager = getWindowManager();
         Display defaultDisplay = windowManager.getDefaultDisplay();
         Display.Mode[] supportedModes = defaultDisplay.getSupportedModes();
-        float fps = 60;
+        float fps = 45;
         for (Display.Mode supportedMode : supportedModes) {
             float refreshRate = supportedMode.getRefreshRate();
             if (refreshRate > fps) {
