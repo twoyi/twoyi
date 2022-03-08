@@ -11,6 +11,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.hzy.libp7zip.P7ZipApi;
@@ -71,6 +72,8 @@ public final class RomManager {
         String timeZoneID = timeZone.getID();
         Log.i(TAG, "timezone: " + timeZoneID);
         properties.setProperty("persist.sys.timezone", timeZoneID);
+
+        properties.setProperty("ro.sf.lcd_density", String.valueOf(DisplayMetrics.DENSITY_DEVICE_STABLE));
 
         try (Writer writer = new FileWriter(propFile)) {
             properties.store(writer, null);
