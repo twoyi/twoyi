@@ -8,9 +8,14 @@
 
     <PreferenceCategory android:title="@string/settings_category_basic">
         <Preference
-            android:key="@string/settings_key_import_app"
-            android:summary="@string/settings_import_app_summary"
-            android:title="@string/settings_key_import_app" />
+            android:key="@string/settings_key_import"
+            android:summary="@string/settings_import_summary"
+            android:title="@string/settings_key_import" />
+
+        <Preference
+            android:key="@string/settings_key_export"
+            android:summary="@string/settings_export_summary"
+            android:title="@string/settings_key_export" />
     </PreferenceCategory>
 
 
@@ -33,15 +38,16 @@
 
 
     <PreferenceCategory android:title="@string/settings_category_other">
-        <Preference
-            android:key="@string/settings_key_donate"
-            android:summary="@string/settings_donate_summary"
-            android:title="@string/settings_key_donate" />
 
         <Preference
             android:key="@string/settings_key_sendlog"
             android:summary="@string/settings_sendlog_summary"
             android:title="@string/settings_key_sendlog" />
+
+        <Preference
+            android:key="@string/settings_key_donate"
+            android:summary="@string/settings_donate_summary"
+            android:title="@string/settings_key_donate" />
 
         <Preference
             android:key="@string/settings_key_about"

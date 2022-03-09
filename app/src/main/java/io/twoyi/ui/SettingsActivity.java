@@ -95,7 +95,8 @@ public class SettingsActivity extends AppCompatActivity {
         public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
 
-            Preference importApp = findPreference(R.string.settings_key_import_app);
+            Preference importApp = findPreference(R.string.settings_key_import);
+            Preference export = findPreference(R.string.settings_key_export);
             Preference replaceRom = findPreference(R.string.settings_key_replace_rom);
             Preference wipeData = findPreference(R.string.settings_key_wipe_all_data);
             Preference factoryReset = findPreference(R.string.settings_key_factory_reset);
@@ -105,6 +106,11 @@ public class SettingsActivity extends AppCompatActivity {
 
             importApp.setOnPreferenceClickListener(preference -> {
                 UIHelper.startActivity(getContext(), SelectAppActivity.class);
+                return true;
+            });
+
+            export.setOnPreferenceClickListener(preference -> {
+                Toast.makeText(getActivity(), "TODO", Toast.LENGTH_SHORT).show();
                 return true;
             });
 
@@ -232,6 +238,8 @@ public class SettingsActivity extends AppCompatActivity {
                                 AppKV.setBooleanConfig(activity, AppKV.FORCE_ROM_BE_RE_INSTALL, true);
 
                                 dialog1.dismiss();
+
+                                // TODO reboot twoyi
                             })
                             .setNegativeButton(android.R.string.cancel, (dialog12, which) -> dialog12.dismiss())
                             .show();
