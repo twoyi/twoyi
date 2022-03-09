@@ -98,6 +98,13 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate: " + savedInstanceState);
+        if (savedInstanceState != null) {
+            // we don't support activity recreate!
+            finishAndRemoveTask();
+            return;
+        }
+
         NavUtils.hideNavigation(getWindow());
 
         super.onCreate(savedInstanceState);
