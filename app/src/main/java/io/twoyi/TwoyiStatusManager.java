@@ -56,6 +56,10 @@ public class TwoyiStatusManager {
         }
     }
 
+    public boolean isStarted() {
+        return mStarted.get();
+    }
+
     public void reset() {
         mStarted.set(false);
         mBootLatch.reset();

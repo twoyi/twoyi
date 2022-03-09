@@ -98,7 +98,15 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG, "onCreate: " + savedInstanceState);
+        boolean started = TwoyiStatusManager.getInstance().isStarted();
+        Log.i(TAG, "onCreate: " + savedInstanceState + " isStarted: " + started);
+
+        if (started) {
+            // we have been started, but WTF we are onCreate again? just reboot ourself.
+            finish();
+            RomManager.reboot(this);
+            return;
+        }
 
         // reset state
         TwoyiStatusManager.getInstance().reset();
@@ -125,6 +133,16 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
 
         mSurfaceView.setOnTouchListener(this);
 
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.i(TAG, "onRestoreInstanceState: " + savedInstanceState);
+
+        // we don't support state restore, just reboot.
+        finish();
+        RomManager.reboot(this);
     }
 
     private void bootSystem() {
