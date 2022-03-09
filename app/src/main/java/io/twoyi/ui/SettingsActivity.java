@@ -120,7 +120,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             shutdown.setOnPreferenceClickListener(preference -> {
                 Activity activity = getActivity();
-                activity.finishAndRemoveTask();
+                activity.finishAffinity();
                 RomManager.shutdown(activity);
                 return true;
             });
