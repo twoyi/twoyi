@@ -73,7 +73,8 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
             DisplayMetrics displayMetrics = new DisplayMetrics();
             defaultDisplay.getRealMetrics(displayMetrics);
 
-            float xdpi = 160, ydpi = 160;
+            float xdpi = displayMetrics.xdpi;
+            float ydpi = displayMetrics.ydpi;
 
             Renderer.init(surface, RomManager.getLoaderPath(getApplicationContext()), xdpi, ydpi, (int) getBestFps());
 
