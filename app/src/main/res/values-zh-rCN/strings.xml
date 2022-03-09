@@ -76,5 +76,13 @@
     <string name="settings_replace_rom_summary">使用自定义的 ROM 启动两仪</string>
     <string name="replace_rom_invalid">您选择的文件不是两仪 ROM</string>
     <string name="replace_rom_confirm_title">ROM 信息确认</string>
-    <string name="replace_rom_confirm_message">ROM author: %1$s\nROM version: %2$s</string>
+    <string name="replace_rom_confirm_message">ROM 作者：%1$s\nROM 版本：%2$s\nROM 信息：%3$s\n\n重启后生效，确认？</string>
+    <string name="settings_category_basic">基础</string>
+    <string name="settings_category_advanced">高级</string>
+    <string name="settings_category_other">其他</string>
+    <string name="settings_key_factory_reset">Factory Reset</string>
+    <string name="settings_factory_reset_summary">恢复出厂设置（数据会保留）</string>
+    <string name="settings_key_wipe_all_data">清除所有数据</string>
+    <string name="settings_wipe_all_data_summary">两仪内部数据将会被全部删除</string>
+    <string name="factory_reset_confirm_message">两仪内部系统将恢复到初始状态，数据将会保留，但系统设置会丢失，第三方系统将会被移除，是否继续？</string>
 </resources>

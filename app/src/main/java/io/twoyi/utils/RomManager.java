@@ -117,6 +117,7 @@ public final class RomManager {
     public static class RomInfo {
         public String author = DEFAULT_INFO;
         public String version = DEFAULT_INFO;
+        public String desc = DEFAULT_INFO;
         public String md5 = "";
         public long code = 0;
 
@@ -334,6 +335,7 @@ public final class RomManager {
             info.author = prop.getProperty("author");
             info.code = Long.parseLong(prop.getProperty("code"));
             info.version = prop.getProperty("version");
+            info.desc = prop.getProperty("desc", DEFAULT_INFO);
             info.md5 = prop.getProperty("md5");
             return info;
         } catch (Throwable e) {

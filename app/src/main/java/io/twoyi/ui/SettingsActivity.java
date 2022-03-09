@@ -97,6 +97,8 @@ public class SettingsActivity extends AppCompatActivity {
 
             Preference importApp = findPreference(R.string.settings_key_import_app);
             Preference replaceRom = findPreference(R.string.settings_key_replace_rom);
+            Preference wipeData = findPreference(R.string.settings_key_wipe_all_data);
+            Preference factoryReset = findPreference(R.string.settings_key_factory_reset);
             Preference donate = findPreference(R.string.settings_key_donate);
             Preference sendLog = findPreference(R.string.settings_key_sendlog);
             Preference about = findPreference(R.string.settings_key_about);
@@ -119,6 +121,25 @@ public class SettingsActivity extends AppCompatActivity {
                 } catch (Throwable ignored) {
                     Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
+                return true;
+            });
+
+            factoryReset.setOnPreferenceClickListener(preference -> {
+                UIHelper.getDialogBuilder(getActivity())
+                        .setTitle(android.R.string.dialog_alert_title)
+                        .setMessage(R.string.factory_reset_confirm_message)
+                        .setPositiveButton(R.string.i_confirm_it, (dialog, which) -> {
+                            AppKV.setBooleanConfig(getActivity(), AppKV.SHOULD_USE_THIRD_PARTY_ROM, false);
+                            AppKV.setBooleanConfig(getActivity(), AppKV.FORCE_ROM_BE_RE_INSTALL, true);
+                            dialog.dismiss();
+                        })
+                        .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.dismiss())
+                        .show();
+                return true;
+            });
+
+            wipeData.setOnPreferenceClickListener(preference -> {
+                Toast.makeText(getActivity(), "TODO", Toast.LENGTH_SHORT).show();
                 return true;
             });
 
@@ -205,7 +226,7 @@ public class SettingsActivity extends AppCompatActivity {
                 if (romInfo.isValid()) {
                     UIHelper.getDialogBuilder(activity)
                             .setTitle(R.string.replace_rom_confirm_title)
-                            .setMessage(getString(R.string.replace_rom_confirm_message, romInfo.author, romInfo.version))
+                            .setMessage(getString(R.string.replace_rom_confirm_message, romInfo.author, romInfo.version, romInfo.desc))
                             .setPositiveButton(R.string.i_confirm_it, (dialog1, which) -> {
                                 AppKV.setBooleanConfig(activity, AppKV.SHOULD_USE_THIRD_PARTY_ROM, true);
                                 AppKV.setBooleanConfig(activity, AppKV.FORCE_ROM_BE_RE_INSTALL, true);
