@@ -89,4 +89,6 @@
     <string name="factory_reset_confirm_message">Factory reset will reset the ROM in twoyi to initial state, the third party ROM will be replaced, data will be kept, continue?</string>
     <string name="settings_key_export">Export...</string>
     <string name="settings_export_summary">Export files to outside system</string>
+    <string name="settings_key_shutdown">Shutdown</string>
+    <string name="settings_shutdown_summary">Shutdown twoyi</string>
 </resources>

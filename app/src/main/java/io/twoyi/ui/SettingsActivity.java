@@ -97,9 +97,12 @@ public class SettingsActivity extends AppCompatActivity {
 
             Preference importApp = findPreference(R.string.settings_key_import);
             Preference export = findPreference(R.string.settings_key_export);
+
+            Preference shutdown = findPreference(R.string.settings_key_shutdown);
             Preference replaceRom = findPreference(R.string.settings_key_replace_rom);
             Preference wipeData = findPreference(R.string.settings_key_wipe_all_data);
             Preference factoryReset = findPreference(R.string.settings_key_factory_reset);
+
             Preference donate = findPreference(R.string.settings_key_donate);
             Preference sendLog = findPreference(R.string.settings_key_sendlog);
             Preference about = findPreference(R.string.settings_key_about);
@@ -110,6 +113,11 @@ public class SettingsActivity extends AppCompatActivity {
             });
 
             export.setOnPreferenceClickListener(preference -> {
+                Toast.makeText(getActivity(), "TODO", Toast.LENGTH_SHORT).show();
+                return true;
+            });
+
+            shutdown.setOnPreferenceClickListener(preference -> {
                 Toast.makeText(getActivity(), "TODO", Toast.LENGTH_SHORT).show();
                 return true;
             });

@@ -21,6 +21,10 @@
 
     <PreferenceCategory android:title="@string/settings_category_advanced">
         <Preference
+            android:key="@string/settings_key_shutdown"
+            android:title="@string/settings_key_shutdown" />
+
+        <Preference
             android:key="@string/settings_key_replace_rom"
             android:summary="@string/settings_replace_rom_summary"
             android:title="@string/settings_key_replace_rom" />

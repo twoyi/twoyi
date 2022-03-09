@@ -87,4 +87,5 @@
     <string name="factory_reset_confirm_message">两仪内部系统将恢复到初始状态，数据将会保留，但系统设置会丢失，第三方系统将会被移除，是否继续？</string>
     <string name="settings_key_export">导出…</string>
     <string name="settings_export_summary">导出两仪内部文件至外部系统</string>
+    <string name="settings_key_shutdown">关机</string>
 </resources>
