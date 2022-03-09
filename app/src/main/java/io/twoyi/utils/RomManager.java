@@ -7,9 +7,11 @@
 package io.twoyi.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.res.AssetManager;
 import android.os.Build;
+import android.os.Process;
 import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -243,6 +245,18 @@ public final class RomManager {
 
     private static void showRootfsInstallationFailure(Context context) {
         // TODO
+    }
+
+    public static void reboot(Context context) {
+        Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+        context.getApplicationContext().startActivity(intent);
+
+        shutdown(context);
+    }
+
+    public static void shutdown(Context context) {
+        System.exit(0);
+        Process.killProcess(Process.myPid());
     }
 
     public static boolean extract3rdRootfs(Context context) {

@@ -90,5 +90,5 @@
     <string name="settings_key_export">Export...</string>
     <string name="settings_export_summary">Export files to outside system</string>
     <string name="settings_key_shutdown">Shutdown</string>
-    <string name="settings_shutdown_summary">Shutdown twoyi</string>
+    <string name="settings_key_reboot">Reboot</string>
 </resources>

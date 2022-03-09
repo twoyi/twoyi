@@ -16,13 +16,19 @@
             android:key="@string/settings_key_export"
             android:summary="@string/settings_export_summary"
             android:title="@string/settings_key_export" />
+
+        <Preference
+            android:key="@string/settings_key_shutdown"
+            android:title="@string/settings_key_shutdown" />
+
+        <Preference
+            android:key="@string/settings_key_reboot"
+            android:title="@string/settings_key_reboot" />
     </PreferenceCategory>
 
 
     <PreferenceCategory android:title="@string/settings_category_advanced">
-        <Preference
-            android:key="@string/settings_key_shutdown"
-            android:title="@string/settings_key_shutdown" />
+
 
         <Preference
             android:key="@string/settings_key_replace_rom"

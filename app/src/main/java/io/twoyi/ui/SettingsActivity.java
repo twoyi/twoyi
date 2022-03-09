@@ -99,6 +99,7 @@ public class SettingsActivity extends AppCompatActivity {
             Preference export = findPreference(R.string.settings_key_export);
 
             Preference shutdown = findPreference(R.string.settings_key_shutdown);
+            Preference reboot = findPreference(R.string.settings_key_reboot);
             Preference replaceRom = findPreference(R.string.settings_key_replace_rom);
             Preference wipeData = findPreference(R.string.settings_key_wipe_all_data);
             Preference factoryReset = findPreference(R.string.settings_key_factory_reset);
@@ -118,7 +119,16 @@ public class SettingsActivity extends AppCompatActivity {
             });
 
             shutdown.setOnPreferenceClickListener(preference -> {
-                Toast.makeText(getActivity(), "TODO", Toast.LENGTH_SHORT).show();
+                Activity activity = getActivity();
+                activity.finishAndRemoveTask();
+                RomManager.shutdown(activity);
+                return true;
+            });
+
+            reboot.setOnPreferenceClickListener(preference -> {
+                Activity activity = getActivity();
+                activity.finishAndRemoveTask();
+                RomManager.reboot(activity);
                 return true;
             });
 
@@ -146,6 +156,8 @@ public class SettingsActivity extends AppCompatActivity {
                             AppKV.setBooleanConfig(getActivity(), AppKV.SHOULD_USE_THIRD_PARTY_ROM, false);
                             AppKV.setBooleanConfig(getActivity(), AppKV.FORCE_ROM_BE_RE_INSTALL, true);
                             dialog.dismiss();
+
+                            RomManager.reboot(getActivity());
                         })
                         .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.dismiss())
                         .show();
@@ -247,7 +259,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                                 dialog1.dismiss();
 
-                                // TODO reboot twoyi
+                                RomManager.reboot(getActivity());
                             })
                             .setNegativeButton(android.R.string.cancel, (dialog12, which) -> dialog12.dismiss())
                             .show();
