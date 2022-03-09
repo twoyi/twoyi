@@ -7,6 +7,8 @@
 package io.twoyi.ui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +17,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,11 +29,16 @@ import androidx.core.content.FileProvider;
 import com.microsoft.appcenter.crashes.Crashes;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 
 import io.twoyi.R;
+import io.twoyi.utils.AppKV;
 import io.twoyi.utils.LogEvents;
+import io.twoyi.utils.RomManager;
 import io.twoyi.utils.UIHelper;
 
 /**
@@ -39,6 +47,8 @@ import io.twoyi.utils.UIHelper;
  */
 
 public class SettingsActivity extends AppCompatActivity {
+
+    private static final int REQUEST_GET_FILE = 1000;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,12 +96,29 @@ public class SettingsActivity extends AppCompatActivity {
             super.onViewCreated(view, savedInstanceState);
 
             Preference importApp = findPreference(R.string.settings_key_import_app);
+            Preference replaceRom = findPreference(R.string.settings_key_replace_rom);
             Preference donate = findPreference(R.string.settings_key_donate);
             Preference sendLog = findPreference(R.string.settings_key_sendlog);
             Preference about = findPreference(R.string.settings_key_about);
 
             importApp.setOnPreferenceClickListener(preference -> {
                 UIHelper.startActivity(getContext(), SelectAppActivity.class);
+                return true;
+            });
+
+            replaceRom.setOnPreferenceClickListener(preference -> {
+
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+
+                // you can only select one rootfs
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+                intent.setType("*/*"); // apk file
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                try {
+                    startActivityForResult(intent, REQUEST_GET_FILE);
+                } catch (Throwable ignored) {
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             });
 
@@ -129,6 +156,74 @@ public class SettingsActivity extends AppCompatActivity {
                 UIHelper.startActivity(getContext(), AboutActivity.class);
                 return true;
             });
+        }
+
+
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+
+            if (!(requestCode == REQUEST_GET_FILE && resultCode == Activity.RESULT_OK)) {
+                return;
+            }
+
+            if (data == null) {
+                return;
+            }
+
+            Uri uri = data.getData();
+            if (uri == null) {
+                return;
+            }
+
+            Activity activity = getActivity();
+            ProgressDialog dialog = UIHelper.getProgressDialog(activity);
+            dialog.setCancelable(false);
+            dialog.show();
+
+            // start copy 3rd rom
+            UIHelper.defer().when(() -> {
+
+                File rootfs3rd = RomManager.get3rdRootfsFile(activity);
+
+                ContentResolver contentResolver = activity.getContentResolver();
+                try (InputStream inputStream = contentResolver.openInputStream(uri); OutputStream os = new FileOutputStream(rootfs3rd)) {
+                    byte[] buffer = new byte[1024];
+                    int count;
+                    while ((count = inputStream.read(buffer)) > 0) {
+                        os.write(buffer, 0, count);
+                    }
+                }
+
+                return rootfs3rd;
+            }).done(result -> {
+
+                UIHelper.dismiss(dialog);
+
+                // copy finished, show dialog confirm
+                RomManager.RomInfo romInfo = RomManager.getRomInfo(result);
+                if (romInfo.isValid()) {
+                    UIHelper.getDialogBuilder(activity)
+                            .setTitle(R.string.replace_rom_confirm_title)
+                            .setMessage(getString(R.string.replace_rom_confirm_message, romInfo.author, romInfo.version))
+                            .setPositiveButton(R.string.i_confirm_it, (dialog1, which) -> {
+                                AppKV.setBooleanConfig(activity, AppKV.SHOULD_USE_THIRD_PARTY_ROM, true);
+                                AppKV.setBooleanConfig(activity, AppKV.FORCE_ROM_BE_RE_INSTALL, true);
+
+                                dialog1.dismiss();
+                            })
+                            .setNegativeButton(android.R.string.cancel, (dialog12, which) -> dialog12.dismiss())
+                            .show();
+                } else {
+                    Toast.makeText(activity, R.string.replace_rom_invalid, Toast.LENGTH_SHORT).show();
+                    result.delete();
+                }
+            }).fail(result -> activity.runOnUiThread(() -> {
+                Toast.makeText(activity, getResources().getString(R.string.install_failed_reason, result.getMessage()), Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                activity.finish();
+            }));
+
         }
     }
 }

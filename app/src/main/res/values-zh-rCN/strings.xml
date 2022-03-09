@@ -59,8 +59,8 @@
     <string name="install_failed">安装失败: %1$s</string>
     <string name="title_settings">设置</string>
     <string name="settings_key_about">关于</string>
-    <string name="settings_key_import_app">导入应用</string>
-    <string name="settings_import_app_summary">从外部系统中导入应用至两仪</string>
+    <string name="settings_key_import_app">导入…</string>
+    <string name="settings_import_app_summary">从外部系统中导入应用或文件至两仪</string>
     <string name="settings_key_donate">捐赠</string>
     <string name="settings_donate_summary">予人玫瑰，手有余香~</string>
     <string name="install_failed_reason">安装失败: %1$s</string>
@@ -72,4 +72,9 @@
     <string name="confirm_for_android12">请务必确认您已经按照教程设置！！否则系统可能将无法启动！！！</string>
     <string name="i_confirm_it">我已确认</string>
     <string name="menu_not_show_32bit">不显示 32 位应用</string>
+    <string name="settings_key_replace_rom">替换 ROM</string>
+    <string name="settings_replace_rom_summary">使用自定义的 ROM 启动两仪</string>
+    <string name="replace_rom_invalid">您选择的文件不是两仪 ROM</string>
+    <string name="replace_rom_confirm_title">ROM 信息确认</string>
+    <string name="replace_rom_confirm_message">ROM author: %1$s\nROM version: %2$s</string>
 </resources>

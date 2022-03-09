@@ -42,6 +42,7 @@ import com.cleveroad.androidmanimation.LoadingAnimationView;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import io.twoyi.utils.AppKV;
 import io.twoyi.utils.LogEvents;
 import io.twoyi.utils.NavUtils;
 import io.twoyi.utils.RomManager;
@@ -122,14 +123,21 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
     }
 
     private void bootSystem() {
-        if (!RomManager.romExist(this) || RomManager.needsUpgrade(this)) {
+        boolean romExist = RomManager.romExist(this);
+        boolean needsUpgrade = RomManager.needsUpgrade(this);
+        boolean forceInstall = AppKV.getBooleanConfig(getApplicationContext(), AppKV.FORCE_ROM_BE_RE_INSTALL, false);
+        boolean use3rdRom = AppKV.getBooleanConfig(getApplicationContext(), AppKV.SHOULD_USE_THIRD_PARTY_ROM, false);
+
+        boolean shouldExtractRom = !romExist || forceInstall || needsUpgrade;
+
+        if (shouldExtractRom) {
             Log.i(TAG, "extracting rom...");
 
             showTipsForFirstBoot();
 
             new Thread(() -> {
                 mIsExtracting.set(true);
-                RomManager.extractRootfs(getApplicationContext());
+                RomManager.extractRootfs(getApplicationContext(), romExist, needsUpgrade, forceInstall, use3rdRom);
                 mIsExtracting.set(false);
 
                 RomManager.initRootfs(getApplicationContext());

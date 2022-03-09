@@ -13,6 +13,11 @@
         android:title="@string/settings_key_import_app" />
 
     <Preference
+        android:key="@string/settings_key_replace_rom"
+        android:summary="@string/settings_replace_rom_summary"
+        android:title="@string/settings_key_replace_rom" />
+
+    <Preference
         android:key="@string/settings_key_donate"
         android:summary="@string/settings_donate_summary"
         android:title="@string/settings_key_donate" />

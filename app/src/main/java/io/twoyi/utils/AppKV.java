@@ -6,6 +6,7 @@
 
 package io.twoyi.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -23,12 +24,20 @@ public class AppKV {
     public static final String SHOW_ANDROID12_TIPS = "show_android12_tips_v2";
     public static final String ADD_APP_NOT_SHOW_32BIT = "add_app_not_show_32bit";
 
+    // 是否应该重新安装 ROM
+    // 1. 恢复出厂设置
+    // 2. 替换 ROM
+    public static final String FORCE_ROM_BE_RE_INSTALL = "rom_should_be_re_install";
+
+    // 是否应该使用第三方 ROM
+    public static final String SHOULD_USE_THIRD_PARTY_ROM = "should_use_third_party_rom";
     public static boolean getBooleanConfig(Context context,  String key, boolean fallback) {
         return getPref(context).getBoolean(key, fallback);
     }
 
+    @SuppressLint("ApplySharedPref")
     public static void setBooleanConfig(Context context, String key, boolean value) {
-        getPref(context).edit().putBoolean(key, value).apply();
+        getPref(context).edit().putBoolean(key, value).commit();
     }
 
     private static SharedPreferences getPref(Context context) {

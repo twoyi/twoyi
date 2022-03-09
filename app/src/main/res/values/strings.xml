@@ -61,8 +61,8 @@
     <string name="install_failed">Install failed: %1$s</string>
     <string name="title_settings">Settings</string>
     <string name="settings_key_about">About</string>
-    <string name="settings_key_import_app">Import App</string>
-    <string name="settings_import_app_summary">Import apps from outside system</string>
+    <string name="settings_key_import_app">Import…</string>
+    <string name="settings_import_app_summary">Import apps or files from outside system</string>
     <string name="settings_key_donate">Donate</string>
     <string name="settings_donate_summary">Donate to make twoyi better :)</string>
     <string name="install_failed_reason">install failed: %1$s</string>
@@ -74,4 +74,9 @@
     <string name="confirm_for_android12" >Make sure you\'ve followed the tutorial to set it up!!Otherwise the system may fail to boot!!!</string>
     <string name="i_confirm_it">I confirm it</string>
     <string name="menu_not_show_32bit">Don\'t show 32bit apps</string>
+    <string name="settings_key_replace_rom">Replace ROM</string>
+    <string name="settings_replace_rom_summary">Boot twoyi with your custom ROM</string>
+    <string name="replace_rom_invalid">The ROM is not a valid ROM :(</string>
+    <string name="replace_rom_confirm_title">ROM confirm</string>
+    <string name="replace_rom_confirm_message">ROM author: %1$s\nROM version: %2$s\n\n the ROM will be replaced in next boot.</string>
 </resources>

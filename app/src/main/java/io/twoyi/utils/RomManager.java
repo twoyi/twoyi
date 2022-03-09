@@ -55,6 +55,8 @@ public final class RomManager {
 
     private static final String LOADER_FILE = "libloader.so";
 
+    private static final String CUSTOM_ROM_FILE_NAME = "rootfs_3rd.7z";
+
     private RomManager() {
     }
 
@@ -127,9 +129,13 @@ public final class RomManager {
                     ", code=" + code +
                     '}';
         }
+
+        public boolean isValid() {
+            return this != DEFAULT_ROM_INFO;
+        }
     }
 
-    public static RomInfo DEFAULT_ROM_INFO = new RomInfo();
+    public static final RomInfo DEFAULT_ROM_INFO = new RomInfo();
 
     public static boolean romExist(Context context) {
         File initFile = new File(getRootfsDir(context), "init");
@@ -168,6 +174,7 @@ public final class RomManager {
             SevenZArchiveEntry entry;
 
             while ((entry = zFile.getNextEntry()) != null) {
+                Log.i("mylog", "entry: " + entry.getName());
                 if (entry.getName().equals("rootfs/rom.ini")) {
                     byte[] content = new byte[(int) entry.getSize()];
                     zFile.read(content, 0, content.length);
@@ -175,7 +182,8 @@ public final class RomManager {
                     return getRomInfo(bais);
                 }
             }
-        } catch (IOException ignored) {
+        } catch (Throwable e) {
+            Log.e("mylog", "err", e);
         }
         return DEFAULT_ROM_INFO;
     }
@@ -189,11 +197,70 @@ public final class RomManager {
         return DEFAULT_ROM_INFO;
     }
 
-    public static void extractRootfs(Context context) {
+    public static void extractRootfs(Context context, boolean romExist, boolean needsUpgrade, boolean forceInstall, boolean use3rdRom) {
 
         // force remove system dir to avoiding wired issues
         removeSystemPartition(context);
         removeVendorPartition(context);
+
+        if (!romExist) {
+            // first init
+            extractRootfsInAssets(context);
+            return;
+        }
+
+        if (forceInstall) {
+            if (use3rdRom) {
+                // install 3rd rom
+                boolean success = extract3rdRootfs(context);
+                if (!success) {
+                    showRootfsInstallationFailure(context);
+                    return;
+                }
+            } else {
+                // factory reset!!
+                if (!extractRootfsInAssets(context)) {
+                    showRootfsInstallationFailure(context);
+                    return;
+                }
+            }
+
+            // force install finish, reset the state.
+            AppKV.setBooleanConfig(context, AppKV.FORCE_ROM_BE_RE_INSTALL, false);
+        } else {
+            if (use3rdRom) {
+                Log.w(TAG, "WTF? 3rd ROM must be force install!");
+            }
+            if (needsUpgrade) {
+                Log.i(TAG, "upgrade factory rom..");
+                if (!extractRootfsInAssets(context)) {
+                    showRootfsInstallationFailure(context);
+                }
+            }
+        }
+    }
+
+    private static void showRootfsInstallationFailure(Context context) {
+        // TODO
+    }
+
+    public static boolean extract3rdRootfs(Context context) {
+        File rootfs3rd = get3rdRootfsFile(context);
+        if (!rootfs3rd.exists()) {
+            return false;
+        }
+        int err = extractRootfs(context, rootfs3rd);
+        return err == 0;
+    }
+
+    public static int extractRootfs(Context context, File rootfs7z) {
+
+        int cpu = Runtime.getRuntime().availableProcessors();
+        return P7ZipApi.executeCommand(String.format(Locale.US, "7z x -mmt=%d -aoa '%s' '-o%s'",
+                cpu, rootfs7z, context.getDataDir()));
+    }
+
+    public static boolean extractRootfsInAssets(Context context) {
 
         // read assets
         long t1 = SystemClock.elapsedRealtime();
@@ -210,13 +277,13 @@ public final class RomManager {
         }
         long t2 = SystemClock.elapsedRealtime();
 
-        int cpu = Runtime.getRuntime().availableProcessors();
-        int ret = P7ZipApi.executeCommand(String.format(Locale.US, "7z x -mmt=%d -aoa '%s' '-o%s'",
-                cpu, rootfs7z, context.getDataDir()));
+        int ret = extractRootfs(context, rootfs7z);
 
         long t3 = SystemClock.elapsedRealtime();
 
         Log.i(TAG, "extract rootfs, read assets: " + (t2 - t1) + " un7z: " + (t3 - t2) + "ret: " + ret);
+
+        return ret == 0;
     }
 
     public static File getRootfsDir(Context context) {
@@ -233,6 +300,10 @@ public final class RomManager {
 
     public static File getVendorPropFile(Context context) {
         return new File(getVendorDir(context), "default.prop");
+    }
+
+    public static File get3rdRootfsFile(Context context) {
+        return context.getFileStreamPath(CUSTOM_ROM_FILE_NAME);
     }
 
     public static boolean isAndroid12() {
