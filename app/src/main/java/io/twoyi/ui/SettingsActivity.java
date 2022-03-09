@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.provider.DocumentsContract;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -114,7 +115,9 @@ public class SettingsActivity extends AppCompatActivity {
             });
 
             export.setOnPreferenceClickListener(preference -> {
-                Toast.makeText(getActivity(), "TODO", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setType(DocumentsContract.Document.MIME_TYPE_DIR);
+                startActivity(intent);
                 return true;
             });
 
