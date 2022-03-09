@@ -59,8 +59,8 @@
     <string name="install_failed">安装失败: %1$s</string>
     <string name="title_settings">设置</string>
     <string name="settings_key_about">关于</string>
-    <string name="settings_key_import">导入…</string>
-    <string name="settings_import_summary">从外部系统中导入应用或文件至两仪</string>
+    <string name="settings_key_import_app">导入应用</string>
+    <string name="settings_import_summary">从外部系统中导入应用至两仪</string>
     <string name="settings_key_donate">捐赠</string>
     <string name="settings_donate_summary">予人玫瑰，手有余香~</string>
     <string name="install_failed_reason">安装失败: %1$s</string>
@@ -85,8 +85,8 @@
     <string name="settings_key_wipe_all_data">清除所有数据</string>
     <string name="settings_wipe_all_data_summary">两仪内部数据将会被全部删除</string>
     <string name="factory_reset_confirm_message">两仪内部系统将恢复到初始状态，数据将会保留，但系统设置会丢失，第三方系统将会被移除，是否继续？</string>
-    <string name="settings_key_export">导出…</string>
-    <string name="settings_export_summary">导出两仪内部文件至外部系统</string>
+    <string name="settings_key_manage_files">文件管理</string>
+    <string name="settings_export_summary">导入/导出两仪内部文件</string>
     <string name="settings_key_shutdown">关机</string>
     <string name="settings_key_reboot">重启</string>
 </resources>

@@ -8,14 +8,14 @@
 
     <PreferenceCategory android:title="@string/settings_category_basic">
         <Preference
-            android:key="@string/settings_key_import"
+            android:key="@string/settings_key_import_app"
             android:summary="@string/settings_import_summary"
-            android:title="@string/settings_key_import" />
+            android:title="@string/settings_key_import_app" />
 
         <Preference
-            android:key="@string/settings_key_export"
+            android:key="@string/settings_key_manage_files"
             android:summary="@string/settings_export_summary"
-            android:title="@string/settings_key_export" />
+            android:title="@string/settings_key_manage_files" />
 
         <Preference
             android:key="@string/settings_key_shutdown"

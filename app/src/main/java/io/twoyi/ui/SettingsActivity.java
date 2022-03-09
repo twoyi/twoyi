@@ -96,8 +96,8 @@ public class SettingsActivity extends AppCompatActivity {
         public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
 
-            Preference importApp = findPreference(R.string.settings_key_import);
-            Preference export = findPreference(R.string.settings_key_export);
+            Preference importApp = findPreference(R.string.settings_key_import_app);
+            Preference export = findPreference(R.string.settings_key_manage_files);
 
             Preference shutdown = findPreference(R.string.settings_key_shutdown);
             Preference reboot = findPreference(R.string.settings_key_reboot);
