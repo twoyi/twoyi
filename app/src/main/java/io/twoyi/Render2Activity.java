@@ -99,11 +99,9 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate: " + savedInstanceState);
-        if (savedInstanceState != null) {
-            // we don't support activity recreate!
-            finishAndRemoveTask();
-            return;
-        }
+
+        // reset state
+        TwoyiStatusManager.getInstance().reset();
 
         NavUtils.hideNavigation(getWindow());
 
@@ -191,7 +189,7 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
                 boolean success = false;
                 try {
                     success = TwoyiStatusManager.getInstance().waitBoot(15, TimeUnit.SECONDS);
-                } catch (InterruptedException ignored) {
+                } catch (Throwable ignored) {
                 }
 
                 if (!success) {
