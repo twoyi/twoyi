@@ -48,11 +48,12 @@ public class TwoyiStatusManager {
     }
 
     public void markStarted() {
-        mStarted.set(true);
-        try {
-            mBootLatch.await();
-        } catch (BrokenBarrierException | InterruptedException e) {
-            LogEvents.trackError(e);
+        if (mStarted.compareAndSet(false, true)) {
+            try {
+                mBootLatch.await();
+            } catch (BrokenBarrierException | InterruptedException e) {
+                LogEvents.trackError(e);
+            }
         }
     }
 
