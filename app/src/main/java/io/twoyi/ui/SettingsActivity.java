@@ -26,6 +26,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.core.util.Pair;
 
 import com.microsoft.appcenter.crashes.Crashes;
 
@@ -245,13 +246,15 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }
 
-                return rootfs3rd;
+                RomManager.RomInfo romInfo = RomManager.getRomInfo(rootfs3rd);
+                return Pair.create(rootfs3rd, romInfo);
             }).done(result -> {
 
+                File rootfs3rd = result.first;
+                RomManager.RomInfo romInfo = result.second;
                 UIHelper.dismiss(dialog);
 
                 // copy finished, show dialog confirm
-                RomManager.RomInfo romInfo = RomManager.getRomInfo(result);
                 if (romInfo.isValid()) {
                     UIHelper.getDialogBuilder(activity)
                             .setTitle(R.string.replace_rom_confirm_title)
@@ -268,7 +271,7 @@ public class SettingsActivity extends AppCompatActivity {
                             .show();
                 } else {
                     Toast.makeText(activity, R.string.replace_rom_invalid, Toast.LENGTH_SHORT).show();
-                    result.delete();
+                    rootfs3rd.delete();
                 }
             }).fail(result -> activity.runOnUiThread(() -> {
                 Toast.makeText(activity, getResources().getString(R.string.install_failed_reason, result.getMessage()), Toast.LENGTH_SHORT).show();
