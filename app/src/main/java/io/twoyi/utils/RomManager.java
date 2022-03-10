@@ -177,7 +177,6 @@ public final class RomManager {
             SevenZArchiveEntry entry;
 
             while ((entry = zFile.getNextEntry()) != null) {
-                Log.i("mylog", "entry: " + entry.getName());
                 if (entry.getName().equals("rootfs/rom.ini")) {
                     byte[] content = new byte[(int) entry.getSize()];
                     zFile.read(content, 0, content.length);
@@ -186,7 +185,7 @@ public final class RomManager {
                 }
             }
         } catch (Throwable e) {
-            Log.e("mylog", "err", e);
+            LogEvents.trackError(e);
         }
         return DEFAULT_ROM_INFO;
     }

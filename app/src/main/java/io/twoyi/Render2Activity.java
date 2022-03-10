@@ -147,11 +147,11 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
 
     private void bootSystem() {
         boolean romExist = RomManager.romExist(this);
-        boolean needsUpgrade = RomManager.needsUpgrade(this);
+        boolean factoryRomUpdated = RomManager.needsUpgrade(this);
         boolean forceInstall = AppKV.getBooleanConfig(getApplicationContext(), AppKV.FORCE_ROM_BE_RE_INSTALL, false);
         boolean use3rdRom = AppKV.getBooleanConfig(getApplicationContext(), AppKV.SHOULD_USE_THIRD_PARTY_ROM, false);
 
-        boolean shouldExtractRom = !romExist || forceInstall || needsUpgrade;
+        boolean shouldExtractRom = !romExist || forceInstall || (!use3rdRom && factoryRomUpdated);
 
         if (shouldExtractRom) {
             Log.i(TAG, "extracting rom...");
@@ -160,7 +160,7 @@ public class Render2Activity extends Activity implements View.OnTouchListener {
 
             new Thread(() -> {
                 mIsExtracting.set(true);
-                RomManager.extractRootfs(getApplicationContext(), romExist, needsUpgrade, forceInstall, use3rdRom);
+                RomManager.extractRootfs(getApplicationContext(), romExist, factoryRomUpdated, forceInstall, use3rdRom);
                 mIsExtracting.set(false);
 
                 RomManager.initRootfs(getApplicationContext());
