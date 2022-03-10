@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  -->
+
+<resources>
+    <string name="app_name">兩儀</string>
+    <string name="booting_tips">兩儀正在啟動…</string>
+    <string name="extracting_tips">兩儀正在初始化系統…</string>
+    <string name="first_boot_tips">第一次初始化時間較長，請耐心等待…</string>
+    <string name="first_boot_tips2">初始化過程一切正常，請繼續等待…</string>
+    <string name="first_boot_tips3">初始化即將完成，請稍等…</string>
+    <string name="boot_failed">兩儀啟動超時！</string>
+    <string name="about_btn">關於</string>
+
+    <string name="help_text">使用說明</string>
+    <string name="check_update">檢查更新</string>
+    <string name="about_follow_gongzhonghao">關注微信公眾號</string>
+    <string name="about_author">作者：weishu（聯絡我）</string>
+    <string name="about_author_contact">聯絡我</string>
+    <string name="about_author_zhihu">知乎 (weishu)</string>
+    <string name="about_author_email">發送郵件</string>
+    <string name="about_author_coolapk">酷安網(weishu)</string>
+    <string name="about_telegram_group">Telegram 群組</string>
+    <string name="progress_dialog_title">請等待</string>
+
+    <string name="about_page_website">官方網站</string>
+    <string name="privacy">隱私協議</string>
+    <string name="about_feedback_qq_title">QQ 群（點擊加入）</string>
+    <string name="wechat_public_account_tips">公眾號名字已經複製到剪貼簿，請搜尋，然後直接關注即可。</string>
+    <string name="i_know_it">我知道了</string>
+    <string name="donate_alipay">支付寶</string>
+    <string name="donate_others">其它方式</string>
+    <string name="prompt_alipay_not_found">你沒有安裝支付寶 ~_~</string>
+    <string name="donate_confirm">支援一下！</string>
+    <string name="donate_never_show">不再提示</string>
+    <string name="donate_choose_title">選擇贊助方式</string>
+    <string name="app_guide_title">重要提示</string>
+    <string name="about_feedback_title">問題回饋</string>
+    <string name="feedback_confirm">如果你遇到了一些問題，可以先查閱說明文件；如果說明文件實在無法解決，或者你有額外的需求，可以聯絡我。</string>
+    <string name="feedback_ok">去回饋</string>
+    <string name="read_faq_text">查閱說明</string>
+    <string name="menu_not_show_system">不顯示系統應用</string>
+    <string name="menu_not_show_added">不顯示已添加應用</string>
+    <string name="select_app_button">匯入</string>
+    <string name="create_app_no_apps">這不合理，竟然沒有找到任何應用？\n 請嘗試給予兩儀查看安裝包列表的權限。</string>
+    <string name="create_app_all_apps_added">沒有應用需要添加 \n 是不是把所有 APP 都添加完啦 :)</string>
+    <string name="select_app_app_not_found">未找到指定的應用，無法添加！</string>
+    <string name="select_app_tips">請選擇要建立的應用</string>
+    <string name="create_app_activity">匯入應用</string>
+    <string name="check_file_invlid_apk">安裝包解析錯誤！</string>
+    <string name="check_file_create_self_tip">小伙子，你這個想法很有前途 :)</string>
+    <string name="import_app_from_file">從APK文件匯入</string>
+    <string name="unsupported_for_32bit_app">不支援 32 位的應用哦 :(</string>
+    <string name="please_install_one_by_one">暫不支援同時安裝多個應用！</string>
+    <string name="install_success">安裝成功!</string>
+    <string name="install_failed">安裝失敗: %1$s</string>
+    <string name="title_settings">設定</string>
+    <string name="settings_key_about">關於</string>
+    <string name="settings_key_import_app">匯入應用</string>
+    <string name="settings_import_summary">從外部系統中匯入應用至兩儀</string>
+    <string name="settings_key_donate">捐贈</string>
+    <string name="settings_donate_summary">予人玫瑰，手有餘香~</string>
+    <string name="install_failed_reason">安裝失敗: %1$s</string>
+    <string name="look_it">去查看</string>
+    <string name="tips_for_android12">您正在 Android 12 上使用兩儀，請參閱 Android 12 使用指南，否則將無法正常使用！</string>
+    <string name="settings_key_sendlog">發送日誌</string>
+    <string name="settings_sendlog_summary">共享日誌給開發者以定位問題</string>
+    <string name="sdcard_of_twoyi">兩儀的 sdcard</string>
+    <string name="confirm_for_android12">請務必確認您已經按照教學設定！！否則系統可能將無法啟動！！！</string>
+    <string name="i_confirm_it">我已確認</string>
+    <string name="menu_not_show_32bit">不顯示 32 位應用</string>
+    <string name="settings_key_replace_rom">取代 ROM</string>
+    <string name="settings_replace_rom_summary">使用自訂的 ROM 啟動兩儀</string>
+    <string name="replace_rom_invalid">您選擇的文件不是兩儀 ROM</string>
+    <string name="replace_rom_confirm_title">ROM 訊息確認</string>
+    <string name="replace_rom_confirm_message">ROM 作者：%1$s\nROM 版本：%2$s\nROM 訊息：%3$s\n\n重啟後生效，確認？</string>
+    <string name="settings_category_basic">基礎</string>
+    <string name="settings_category_advanced">進階</string>
+    <string name="settings_category_other">其他</string>
+    <string name="settings_key_factory_reset">復原出廠設定</string>
+    <string name="settings_factory_reset_summary">復原為出廠官方系統（資料會保留）</string>
+    <string name="settings_key_wipe_all_data">清除所有資料</string>
+    <string name="settings_wipe_all_data_summary">兩儀內部資料將會被全部刪除</string>
+    <string name="factory_reset_confirm_message">兩儀內部系統將復原到初始狀態，資料將會保留，但系統設定會遺失，第三方系統將會被移除，是否繼續？</string>
+    <string name="settings_key_manage_files">文件管理</string>
+    <string name="settings_export_summary">匯入/匯出兩儀內部文件</string>
+    <string name="settings_key_shutdown">關機</string>
+    <string name="settings_key_reboot">重啟</string>
+</resources>
