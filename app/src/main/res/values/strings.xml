@@ -91,4 +91,5 @@
     <string name="settings_export_summary">Import/Export files in twoyi</string>
     <string name="settings_key_shutdown">Shutdown</string>
     <string name="settings_key_reboot">Reboot</string>
+    <string name="replace_rom_unofficial_tips">Sorry, please edit the rom info and avoid using official author name :)</string>
 </resources>

@@ -89,4 +89,5 @@
     <string name="settings_export_summary">导入/导出两仪内部文件</string>
     <string name="settings_key_shutdown">关机</string>
     <string name="settings_key_reboot">重启</string>
+    <string name="replace_rom_unofficial_tips">抱歉，请修改 ROM 描述信息，并且尽量不要使用官方作者的名字 :)</string>
 </resources>

@@ -256,9 +256,17 @@ public class SettingsActivity extends AppCompatActivity {
 
                 // copy finished, show dialog confirm
                 if (romInfo.isValid()) {
+
+                    String author = romInfo.author;
+                    if ("weishu".equalsIgnoreCase(author) || "twoyi".equalsIgnoreCase(author)) {
+                        Toast.makeText(activity, R.string.replace_rom_unofficial_tips, Toast.LENGTH_SHORT).show();
+                        rootfs3rd.delete();
+                        return;
+
+                    }
                     UIHelper.getDialogBuilder(activity)
                             .setTitle(R.string.replace_rom_confirm_title)
-                            .setMessage(getString(R.string.replace_rom_confirm_message, romInfo.author, romInfo.version, romInfo.desc))
+                            .setMessage(getString(R.string.replace_rom_confirm_message, author, romInfo.version, romInfo.desc))
                             .setPositiveButton(R.string.i_confirm_it, (dialog1, which) -> {
                                 AppKV.setBooleanConfig(activity, AppKV.SHOULD_USE_THIRD_PARTY_ROM, true);
                                 AppKV.setBooleanConfig(activity, AppKV.FORCE_ROM_BE_RE_INSTALL, true);
