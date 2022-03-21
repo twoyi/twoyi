@@ -62,6 +62,14 @@ public class LogEvents {
         return new File(context.getCacheDir(), "logcat.txt");
     }
 
+    public static File getKmsgFile(Context context) {
+        return new File(context.getDataDir(), "log.txt");
+    }
+
+    public static File getLastKmsgFile(Context context) {
+        return new File(context.getDataDir(), "last_kmsg.txt");
+    }
+
     private static class ReportItem {
         File file;
         String entry;
@@ -86,9 +94,13 @@ public class LogEvents {
         // file, entry
         List<ReportItem> reportItems = new ArrayList<>();
 
-        // init log
-        File initLogFile = new File(context.getDataDir(), "log.txt");
+        // current kmsg log
+        File initLogFile = getKmsgFile(context);
         reportItems.add(ReportItem.create(initLogFile));
+
+        // current kmsg log
+        File lastKmsgFile = getLastKmsgFile(context);
+        reportItems.add(ReportItem.create(lastKmsgFile));
 
         // logcat
         File logcatFile = getLogcatFile(context);

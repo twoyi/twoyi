@@ -36,6 +36,7 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.TimeZone;
@@ -98,6 +99,8 @@ public final class RomManager {
         createLoaderSymlink(context);
 
         killOrphanProcess();
+
+        saveLastKmsg(context);
     }
 
     private static void createLoaderSymlink(Context context) {
@@ -114,6 +117,15 @@ public final class RomManager {
     private static void killOrphanProcess() {
         Shell shell = ShellUtil.newSh();
         shell.newJob().add("ps -ef | awk '{if($3==1) print $2}' | xargs kill -9").exec();
+    }
+
+    private static void saveLastKmsg(Context context) {
+        File lastKmsgFile = LogEvents.getLastKmsgFile(context);
+        File kmsgFile = LogEvents.getKmsgFile(context);
+        try {
+            Files.move(kmsgFile.toPath(), lastKmsgFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ignored) {
+        }
     }
 
     public static class RomInfo {
