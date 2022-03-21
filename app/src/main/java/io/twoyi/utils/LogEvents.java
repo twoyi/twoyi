@@ -96,9 +96,9 @@ public class LogEvents {
 
         // current kmsg log
         File initLogFile = getKmsgFile(context);
-        reportItems.add(ReportItem.create(initLogFile));
+        reportItems.add(ReportItem.create(initLogFile, "kmsg.txt"));
 
-        // current kmsg log
+        // last kmsg log
         File lastKmsgFile = getLastKmsgFile(context);
         reportItems.add(ReportItem.create(lastKmsgFile));
 
