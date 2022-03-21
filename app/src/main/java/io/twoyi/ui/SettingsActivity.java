@@ -103,7 +103,6 @@ public class SettingsActivity extends AppCompatActivity {
             Preference shutdown = findPreference(R.string.settings_key_shutdown);
             Preference reboot = findPreference(R.string.settings_key_reboot);
             Preference replaceRom = findPreference(R.string.settings_key_replace_rom);
-            Preference wipeData = findPreference(R.string.settings_key_wipe_all_data);
             Preference factoryReset = findPreference(R.string.settings_key_factory_reset);
 
             Preference donate = findPreference(R.string.settings_key_donate);
@@ -165,11 +164,6 @@ public class SettingsActivity extends AppCompatActivity {
                         })
                         .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.dismiss())
                         .show();
-                return true;
-            });
-
-            wipeData.setOnPreferenceClickListener(preference -> {
-                Toast.makeText(getActivity(), "TODO", Toast.LENGTH_SHORT).show();
                 return true;
             });
 
