@@ -83,7 +83,7 @@
     <string name="settings_category_advanced">Advanced</string>
     <string name="settings_category_other">Other</string>
     <string name="settings_key_factory_reset">Factory Reset</string>
-    <string name="settings_factory_reset_summary">Boot twoyi with official internal ROM (date will be kept)</string>
+    <string name="settings_factory_reset_summary">Boot twoyi with official internal ROM (data will be kept)</string>
     <string name="settings_key_wipe_all_data">Wipe all data</string>
     <string name="settings_wipe_all_data_summary">All data in twoyi will be wiped</string>
     <string name="factory_reset_confirm_message">Factory reset will reset the ROM in twoyi to initial state, the third party ROM will be replaced, data will be kept, continue?</string>
