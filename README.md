@@ -43,55 +43,55 @@ Twoyi is a lightweight Android container. It runs a nearly complete Android syst
 
 ## Capability
 
-1. Using Taichi·Yang without unlocking the bootloader. Xposed, EdXposed and LSPosed will be supported later.
-2. Using root on non-rooted devices.
-3. Magisk modules will be partially supported.
-4. Implementing additional system components such as virtual camera by virtualizing the HAL layer.
-5. Doing security research such as shelling.
+1. Use Taichi·Yang without unlocking the bootloader. Xposed, EdXposed and LSPosed will be supported.
+2. Use root on non-rooted devices.
+3. Use a few Magisk modules.
+4. Implement additional system components such as virtual camera by virtualizing the HAL layer.
+5. Do security research such as shelling.
 
 ## Features
 
 1. Twoyi is a rootless Android system-level container, which runs a nearly complete Android system as a normal app and is mostly isolated from the main system.
-2. The internal Android version is Android 8.1 and Android 10 will be supported later.
-3. Starting up Twoyi is very fast and the system can be booted in about three seconds except for the initialization.
+2. The internal Android version is Android 8.1 and Android 10 will be supported.
+3. Booting up twoyi is very fast (within three seconds) except for the initialization process.
 4. Twoyi is an open source project.
-5. The internal system of twoyi will be fully customizable. Because its system is open source, you can fork the project to compile your own AOSP. You can also customize the system components, such as the HAL layer to implement virtual cameras, virtual sensors and other special features.
+5. The internal system of twoyi will be fully customizable. Because its system is open source, you can fork the project to compile your own system. You can also customize the system components, such as the HAL layer to implement virtual cameras, virtual sensors and other special features.
 
-## How to Build
+## Building
 
-Twoyi can be divided into two parts:
+Twoyi contains two parts:
 
 1. The twoyi app, which is actually a UI rendering engine.
 2. The internal ROM of twoyi.
 
-This repository contains the twoyi app, and the twoyi ROM is being turned into open-source.  Therefore, at this time, the ROM cannot be compiled from the source code yet.
+This repository contains the twoyi app, and the twoyi ROM is currently being turned into open-source.  Therefore, at this moment, the ROM cannot be compiled from source yet.
 
-## Build Twoyi ROM
+### Build the App manually
 
-WIP
-
-## Build Twoyi App
-
-### Install Rust
+#### Install Rust
 
 Twoyi is partially written in Rust, so it's nessesary to [install Rust and Cargo](https://www.rust-lang.org/tools/install) first.
 
-### Install cargo-xdk
+#### Install cargo-xdk
 
 Please refer to [cargo-xdk](https://github.com/tiann/cargo-xdk).
 
 You can check if it is installed by running `./gradlew cargoBuild`. If it succeeded, you will see libtwoyi.so in `app/src/main/jniLibs/arm64-v8a`.
 
-PS. Please use the ndk 22 or lower version, otherwise it may build fail.
+PS. Please use ndk v22 or lower, otherwise it may fail.
 
-### Integrating rootfs
+#### Integrating rootfs
 
-The ROM of twoyi is being turned into open-source, so you cannot build it now. You can use the prebuilt ROM instead.
+Currently you cannot build the ROM yourself, instead you can use the prebuilt ROM.
 To do that, extract rootfs.7z from the official release apk and copy it to `app/src/main/assets`.
 
-### Build with Android Studio
+### Build the app with Android Studio
 
 Build it with Android Studio normally.
+
+### Build the ROM
+
+WIP
 
 ## Discussion
 
