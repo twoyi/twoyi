@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  -->
+
+<resources>
+    <string name="app_name">twoyi</string>
+    <string name="booting_tips">twoyiを起動中…</string>
+    <string name="extracting_tips">twoyiを初期化中…</string>
+    <string name="first_boot_tips">最初の起動は少し遅いため、しばらくお待ちください…</string>
+    <string name="first_boot_tips2">初期化は正常です、しばらくお待ちください :)</string>
+    <string name="first_boot_tips3">初期化はもうすぐ完了します、しばらくお待ちください…</string>
+    <string name="boot_failed">Twoyiの起動がタイムアウトしました！</string>
+    <string name="about_btn">このアプリについて</string>
+
+    <string name="help_text">ヘルプ</string>
+    <string name="check_update">更新を確認</string>
+    <string name="about_follow_gongzhonghao">WeChatのパブリックアカウントをフォロー</string>
+    <string name="wechat_public_account_tips">番号がクリップボードにコピーされました、検索してフォローしてください。</string>
+    <string name="about_author">作者: weishu (お問い合わせ)</string>
+    <string name="about_page_website">公式ウェブサイト</string>
+    <string name="privacy">プライバシー</string>
+    <string name="about_feedback_qq_title">QQグループ (クリックで参加)</string>
+    <string name="about_author_zhihu">Zhihu(weishu)</string>
+    <string name="about_author_coolapk">Coolapk(weishu)</string>
+    <string name="about_author_email">メールでのお問い合わせ</string>
+    <string name="about_author_contact">お問い合わせ</string>
+    <string name="about_telegram_group">Telegramグループ</string>
+    <string name="i_know_it">了解</string>
+    <string name="progress_dialog_title">少々お待ちください</string>
+
+    <string name="donate_alipay">Alipay</string>
+    <string name="donate_others">他の方法</string>
+    <string name="donate_choose_title">寄付の方法を選択</string>
+    <string name="prompt_alipay_not_found">Alipayが見つかりません。</string>
+    <string name="donate_confirm">寄付</string>
+    <string name="donate_never_show">再度表示しない</string>
+    <string name="app_guide_title">重要なお知らせ</string>
+    <string name="about_feedback_title">TwoYiのフィードバック</string>
+    <string name="feedback_confirm">問題が発生した場合はまずFAQを読んでください！もし機能の要望があれば私に連絡してください。</string>
+    <string name="feedback_ok">フィードバックする</string>
+    <string name="read_faq_text">FAQを読む</string>
+    <string name="menu_not_show_system">システムアプリを表示しない</string>
+    <string name="menu_not_show_added">追加されたアプリを表示しない</string>
+    <string name="select_app_button">アプリをインポート</string>
+    <string name="create_app_no_apps">追加するアプリがない場合には、twoyiに必要な権限を許可してください。</string>
+    <string name="create_app_all_apps_added">全てのアプリが追加されました :)</string>
+    <string name="select_app_app_not_found">指定されたパッケージが見つかりません。</string>
+    <string name="select_app_tips">作成するアプリを選択してください</string>
+    <string name="create_app_activity">アプリをインポート</string>
+    <string name="check_file_invlid_apk">APKファイルを解析できません</string>
+    <string name="check_file_create_self_tip">あなたのアイデアは有望です :)</string>
+    <string name="import_app_from_file">アプリをAPKからインポート</string>
+    <string name="unsupported_for_32bit_app">32 bit アプリはサポートされていません :(</string>
+    <string name="please_install_one_by_one">アプリを1つずつインストールしてください！</string>
+    <string name="install_success">インストールが成功しました！</string>
+    <string name="install_failed">インストールに失敗しました: %1$s</string>
+    <string name="title_settings">設定</string>
+    <string name="settings_key_about">このアプリについて</string>
+    <string name="settings_key_import_app">アプリをインポート</string>
+    <string name="settings_import_summary">外部システムからアプリをインポート</string>
+    <string name="settings_key_donate">寄付</string>
+    <string name="settings_donate_summary">twoyiをよりよくするために寄付をする :)</string>
+    <string name="install_failed_reason">インストールに失敗しました: %1$s</string>
+    <string name="look_it">読む</string>
+    <string name="tips_for_android12">Android 12 をお使いの場合、twoyiの使用方法についてガイドに従ってください。</string>
+    <string name="settings_key_sendlog">ログを送信</string>
+    <string name="settings_sendlog_summary">例外ログを開発者に共有</string>
+    <string name="sdcard_of_twoyi">twoyiのSDカード</string>
+    <string name="confirm_for_android12" >チュートリアルに沿ってセットアップしたことを確認してください！！！そうでなければ、システムが起動しない可能性があります。</string>
+    <string name="i_confirm_it">確認する</string>
+    <string name="menu_not_show_32bit"32bit アプリを表示しない</string>
+    <string name="settings_key_replace_rom">ROMを置き換える</string>
+    <string name="settings_replace_rom_summary">twoyiをカスタムROMで起動</string>
+    <string name="replace_rom_invalid">このROMは有効なROMではございません :(</string>
+    <string name="replace_rom_confirm_title">ROMの確認</string>
+    <string name="replace_rom_confirm_message">ROMの作者: %1$s\nROMのバージョン: %2$s\nROMの概要: %3$s\n\n 次の起動からROMが置き換えられます。</string>
+    <string name="settings_category_basic">基本</string>
+    <string name="settings_category_advanced">高度</string>
+    <string name="settings_category_other">その他</string>
+    <string name="settings_key_factory_reset">ファクトリーリセット</string>
+    <string name="settings_factory_reset_summary">twoyiの公式内部ROMを起動 (データは保持されます)</string>
+    <string name="settings_key_wipe_all_data">全データの削除</string>
+    <string name="settings_wipe_all_data_summary">twoyiの全データが削除されます</string>
+    <string name="factory_reset_confirm_message">ファクトリーリセットではtwoyiのROMをリセットし、サードパーティーのROMを置き換え、データは保持されます、続行しますか？</string>
+    <string name="settings_key_manage_files">ファイルマネージャー</string>
+    <string name="settings_export_summary">ファイルをtwoyiから(インポート/エクスポート)</string>
+    <string name="settings_key_shutdown">シャットダウン</string>
+    <string name="settings_key_reboot">再起動</string>
+    <string name="replace_rom_unofficial_tips">申し訳ございませんが、rom情報の編集と正式な作者名の使用を避けてください。 :)</string>
+</resources>
