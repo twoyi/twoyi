@@ -71,7 +71,7 @@
     <string name="sdcard_of_twoyi">twoyiのSDカード</string>
     <string name="confirm_for_android12" >チュートリアルに沿ってセットアップしたことを確認してください！！！そうでなければ、システムが起動しない可能性があります。</string>
     <string name="i_confirm_it">確認する</string>
-    <string name="menu_not_show_32bit"32bit アプリを表示しない</string>
+    <string name="menu_not_show_32bit">32bit アプリを表示しない</string>
     <string name="settings_key_replace_rom">ROMを置き換える</string>
     <string name="settings_replace_rom_summary">twoyiをカスタムROMで起動</string>
     <string name="replace_rom_invalid">このROMは有効なROMではございません :(</string>
