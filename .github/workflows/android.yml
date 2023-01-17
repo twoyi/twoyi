@@ -36,6 +36,7 @@ jobs:
          toolchain: stable
          target: aarch64-linux-android
          override: true
+         default: true
     - name: Rustup add aarch64
       run: rustup target add aarch64-linux-android
     - name: Cargo install cargo-binstall
