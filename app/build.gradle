@@ -23,6 +23,7 @@ android {
     }
     defaultConfig {
         applicationId "io.twoyi"
+        testApplicationId "io.twoyi"
         minSdkVersion 21
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 27
@@ -40,15 +41,13 @@ android {
     }
     buildTypes {
         release {
-            applicationIdSuffix ""
-            versionNameSuffix ""
+            applicationId "io.twoyi"
             minifyEnabled false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            applicationIdSuffix ""
-            versionNameSuffix ""
+            applicationId "io.twoyi"
             minifyEnabled false
             debuggable true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -69,9 +68,22 @@ task cargoBuild {
         }
     }
 }
+task cargoBuildDebug {
+    doLast {
+        exec {
+            //切换到sh文件所在的目录，执行脚本
+            workingDir new File(project.projectDir, "rs")
+            //执行shell脚本 "," 传参
+            commandLine "sh", "build_rs.sh", "--debug"
+        }
+    }
+}
 
 tasks.whenTaskAdded { task ->
-   if ((task.name == 'javaPreCompileDebug' || task.name == 'javaPreCompileRelease')) {
+   if ((task.name == 'javaPreCompileDebug')) {
+        task.dependsOn 'cargoBuildDebug'
+    }
+    if ((task.name == 'javaPreCompileRelease')) {
         task.dependsOn 'cargoBuild'
     }
 }
