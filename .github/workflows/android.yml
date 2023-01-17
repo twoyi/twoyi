@@ -10,9 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      target: ${{ env.arch-target }}-linux-android
+      target: "${{ env.arch-target }}-linux-android"
       binstall-args: --no-confirm --no-symlinks
-      cache-name: ${{ runner.os }}-${{ runner.arch }}-${{ runner.name }}-cache-${{ env.target }}
+      cache-name: "${{ runner.os }}-${{ runner.arch }}-${{ runner.name }}-cache-${{ env.target }}"
     steps:
     - uses: actions/checkout@v3
     - name: Cache
