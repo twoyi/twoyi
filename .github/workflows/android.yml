@@ -226,13 +226,14 @@ jobs:
         sed -i "s/-XX:MaxPermSize=512m/-XX:MaxPermSize=${MEMPERM}m/g" ./gradle.properties
         echo  "./gradle.properties updated:"
         grep 'org.gradle.jvmargs=' ./gradle.properties
-    - name: set up JDK 11
+    - name: Setup JDK 11
       uses: actions/setup-java@v3
       with:
         java-version: '11'
         distribution: 'temurin'
         cache: gradle
-    - uses: nttld/setup-ndk@v1
+    - name: Setup NDK
+      uses: nttld/setup-ndk@v1
       with:
         ndk-version: r25b
         local-cache: true
