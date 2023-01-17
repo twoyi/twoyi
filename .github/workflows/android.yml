@@ -278,8 +278,8 @@ jobs:
     - name: Find Apk
       shell: bash {0}
       run: |
-        find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'debug' | xargs -r -I@ find @ -type f -name '*.apk' | ( xargs -r -I@ echo 'DEBUGAPK="@"' >> $GITHUB_ENV )
-        find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'release' | xargs -r -I@ find @ -type f -name '*.apk' | ( xargs -r -I@ echo 'RELEASEAPK="@"' >> $GITHUB_ENV )
+        find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'debug' -print -quit | xargs -r -I@ find @ -type f -name '*.apk' | ( xargs -r -I@ echo 'DEBUGAPK="@"' >> $GITHUB_ENV )
+        find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'release' -print -quit | xargs -r -I@ find @ -type f -name '*.apk' | ( xargs -r -I@ echo 'RELEASEAPK="@"' >> $GITHUB_ENV )
         . $GITHUB_ENV
         [[ ! -n "${DEBUGAPK}" ]] && echo DEBUGAPK="/not-found" >> $GITHUB_ENV
         [[ ! -n "${RELEASEAPK}" ]] && echo RELEASEAPK="/not-found" >> $GITHUB_ENV
