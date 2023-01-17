@@ -50,6 +50,14 @@ jobs:
           !./app/rs/.*
           !./app/rs/*.*
           ./app/lint-baseline.xml
+    - name: Update Grandle JVM Memory
+      shell: bash {0}
+      run: |
+        grep MemTotal /proc/meminfo | sed 's/MemTotal: ([0-9]*) kB/\1/g' | eval MEMTOTAL= >> $GITHUB_ENV
+        . $GITHUB_ENV
+        sed -i "s/(org\.gradle\.jvmargs=-Xmx)2048m/\1${MEMTOTAL}k/g" ./gradle.properties
+        echo  "./gradle.properties updated:"
+        grep 'org.gradle.jvmargs=' ./gradle.properties
     - name: Cargo Setup toolchain action to ${{ env.target }}
       uses: actions-rs/toolchain@v1
       with:
