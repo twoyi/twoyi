@@ -53,12 +53,12 @@ jobs:
         cache: gradle
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+    - name: Gradlew add JUnit
+      uses: mikepenz/action-junit-report@v3
     - name: Gradlew check cargo
       run: ./gradlew cargoBuild
     - name: Build with Gradle
-      uses: mikepenz/action-junit-report@v3
-      with:
-        run: ./gradlew build
+      run: ./gradlew build
     - name: Build Artifacts
       uses: actions/upload-artifact@v3
       with:
