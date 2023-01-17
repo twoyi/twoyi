@@ -32,16 +32,16 @@ jobs:
             !~/app/rs/*.*
     - name: Cargo install toolchain aarch64
       uses: actions-rs/toolchain@v1
-      continue-on-error: true
       with:
-        toolchain: nightly
+        toolchain: stable
         target: aarch64-linux-android
         override: true
+    - name: Cargo install ndk
+      run: cargo install cargo-ndk
     - name: Cargo install xdk
-      continue-on-error: true
       run: cargo install cargo-xdk
-    - name: Cargo Setup aarch64
-      run: rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
+    - name: Cargo Setup Toolchains
+      run: rustup target add aarch64-linux-android armv7-linux-androideabi
     - name: set up JDK 11
       uses: actions/setup-java@v3
       with:
