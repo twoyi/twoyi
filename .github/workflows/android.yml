@@ -15,10 +15,10 @@ jobs:
     - uses: actions/checkout@v3
     - uses: actions-rs/toolchain@v1
       with:
-          toolchain: stable
-          target: armv7-unknown-linux-gnueabihf
-          override: true
-          components: rustfmt, clippy
+        toolchain: stable
+        target: armv7-unknown-linux-gnueabihf
+        override: true
+        components: rustfmt, clippy
     - name: Cargo install xdk
       run:  cargo install cargo-xdk
     - name: Cargo install toolchains
@@ -40,8 +40,9 @@ jobs:
       run: ./gradlew cargoBuild
     - name: Build with Gradle
       uses: mikepenz/action-junit-report@v3
-      run: ./gradlew build
+      with:
+        run: ./gradlew build
     - name: Build
       uses: actions/upload-artifact@v3
       with:
-          path: .
+        path: .
