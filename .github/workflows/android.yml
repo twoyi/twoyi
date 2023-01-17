@@ -22,7 +22,9 @@ jobs:
       with:
         key: ${{ env.cache-name }}-${{ runner.os }}-${{ runner.arch }}-${{ github.job }}-${{ env.target }}
         path: |
-          ~/work
+          ~/
+          !~/.*
+          !~/*.*
           !~/work/.*
           !~/work/*.*
           !~/work/assets
