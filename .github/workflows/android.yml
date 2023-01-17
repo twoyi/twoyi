@@ -36,6 +36,7 @@ jobs:
       with:
         toolchain: nightly
         target: aarch64-linux-android
+        override: true
     - name: Cargo install xdk
       continue-on-error: true
       run: cargo install cargo-xdk
