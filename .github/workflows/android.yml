@@ -73,9 +73,9 @@ jobs:
     - name: Update Grandle JVM Memory
       shell: bash {0}
       run: |
-        free | head -n-1 | tail -n-1 | xargs -r | cut -d' ' -f4 | xargs bash -c 'echo MEMTOTAL=$0' >> $GITHUB_ENV
+        free -m | head -n-1 | tail -n-1 | xargs -r | cut -d' ' -f2 | xargs bash -c 'echo MEMTOTAL=$0' >> $GITHUB_ENV
         . $GITHUB_ENV
-        sed -i "s/$org\.gradle\.jvmargs=-Xmx2048m/org.gradle.jvmargs=-Xmx${MEMTOTAL}k/g" ./gradle.properties
+        sed -i "s/$org\.gradle\.jvmargs=-Xmx2048m/org.gradle.jvmargs=-Xmx${MEMTOTAL}m/g" ./gradle.properties
         echo  "./gradle.properties updated:"
         grep 'org.gradle.jvmargs=' ./gradle.properties
     - name: set up JDK 11
