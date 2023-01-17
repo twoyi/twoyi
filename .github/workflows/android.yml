@@ -36,7 +36,6 @@ jobs:
             x86_64-linux-android
             i686-linux-android
         override: true
-        components: rustfmt, clippy
     - name: Cargo install xdk
       continue-on-error: true
       run: cargo install cargo-xdk
