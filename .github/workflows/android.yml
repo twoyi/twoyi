@@ -41,6 +41,8 @@ jobs:
       run: rustup target add aarch64-linux-android
     - name: Cargo install cargo-binstall
       run: cargo install cargo-binstall
+    - name: Cargo binstall cargo-update
+      run: cargo binstall --no-confirm --no-symlinks cargo-update
     - name: Cargo binstall cross
       run: cargo binstall --no-confirm --no-symlinks cross
     #- name: Cargo Setup aarch64
