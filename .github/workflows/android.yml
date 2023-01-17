@@ -34,14 +34,14 @@ jobs:
       uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
-        target: aarch64-linux-android
+        target: aarch64-unknown-linux-gnu
         override: true
     - name: Cargo install ndk
       run: cargo install cargo-ndk
     - name: Cargo install xdk
       run: cargo install cargo-xdk
     - name: Cargo Setup Toolchains
-      run: rustup target add aarch64-linux-android armv7-linux-androideabi
+      run: rustup target add aarch64-linux-android
     - name: set up JDK 11
       uses: actions/setup-java@v3
       with:
