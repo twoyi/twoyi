@@ -38,17 +38,18 @@ jobs:
          override: true
     - name: Rustup add aarch64
       run: rustup target add aarch64-linux-android
-    - name: Cargo Setup aarch64
-      uses: actions-rs/cargo@v1
-      with:
-         use-cross: true
-         command: build
     - name: Cargo install cargo-binstall
       run: cargo install cargo-binstall
     - name: Cargo binstall cross
       run: cargo binstall --no-confirm --no-symlinks cross
+    #- name: Cargo Setup aarch64
+      #uses: actions-rs/cargo@v1
+      #with:
+         #use-cross: true
+         #command: 
+         #args: --target aarch64-linux-android 
     - name: Cargo binstall ndk
-      run: cargo binstall --no-confirm --no-symlinks cargo-ndk
+      run: cargo binstall  --no-confirm --no-symlinks cargo-ndk
     - name: Cargo binstall xdk
       run: cargo binstall --no-confirm --no-symlinks cargo-xdk
     - name: Cargo Update
