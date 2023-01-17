@@ -123,7 +123,11 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         path: ./app/build/
-    #- name: Build Artifacts Twoyi-debug.apk
-      #uses: actions/upload-artifact@v3
-      #with:
-        #path: ./app/build/outputs/apk/debug/*.apk
+    - name: Build Artifacts Twoyi-release.apk
+      uses: actions/upload-artifact@v3
+      with:
+        path: ./app/build/outputs/apk/release/*.apk
+    - name: Build Artifacts Twoyi-debug.apk
+      uses: actions/upload-artifact@v3
+      with:
+        path: ./app/build/outputs/apk/debug/*.apk
