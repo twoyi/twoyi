@@ -271,6 +271,7 @@ jobs:
       run: |
         ./gradlew clean
         rm -rf ./app/build ./app/twoyi/build ./twoyi/app/build ./twoyi/build ~/app/build ~/work/app/build ~/work/app/twoyi/build ~/work/twoyi/build ~/work/twoyi/app/build ~/work/twoyi/twoyi/build 
+        ./gradlew wrapper --gradle-version=7.2
         ./gradlew --build-cache build -Prust-target=arm64
         ./gradlew --build-cache assembleRelease -Prust-target=arm64
         ./gradlew --build-cache assembleDebug -Prust-target=arm64
