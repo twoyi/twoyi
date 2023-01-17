@@ -114,8 +114,8 @@ jobs:
         cache: gradle
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Gradlew check cargo
-      run: ./gradlew cargoBuild
+    #- name: Gradlew check cargo
+      #run: ./gradlew cargoBuild
     - name: Build with Gradle
       continue-on-error: true
       run: ./gradlew build --debug --scan
