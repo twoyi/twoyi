@@ -78,6 +78,12 @@ jobs:
         sed -i "s/$org\.gradle\.jvmargs=-Xmx2048m/org.gradle.jvmargs=-Xmx${MEMTOTAL}k/g" ./gradle.properties
         echo  "./gradle.properties updated:"
         grep 'org.gradle.jvmargs=' ./gradle.properties
+    - name: set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
     - name: Cargo Setup toolchain action to ${{ env.target }}
       uses: actions-rs/toolchain@v1
       with:
@@ -106,12 +112,6 @@ jobs:
     - name: Cargo Update
       continue-on-error: true
       run: cargo install-update -a
-    - name: set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: gradle
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     #- name: Gradlew check cargo
