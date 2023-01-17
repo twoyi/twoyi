@@ -25,9 +25,9 @@ jobs:
       run:  rustup target add aarch64-linux-android armv7-linux-androideabi
     - name: Cargo Setup
       uses: actions-rs/cargo@v1
-        with:
-          use-cross: true
-          run: cargo ndk -t armeabi-v7a -t arm64-v8a -o ./jniLibs build --release 
+      with:
+        use-cross: true
+        run: cargo ndk -t armeabi-v7a -t arm64-v8a -o ./jniLibs build --release 
     - name: set up JDK 11
       uses: actions/setup-java@v3
       with:
