@@ -125,10 +125,14 @@ jobs:
         ./gradlew build --info
         ./gradlew assembleRelease -Prust-target=arm64 --info
         ./gradlew assembleDebug -Prust-target=arm64 --info
-    - name: Find Release Apk
-      run: find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'release' | xargs -r -I@ find @ -type f -name '*.apk' | xargs -r -I@ bash -c "echo "'"'"RELEASE-APK='@'"'"'" >> $GITHUB_ENV"
-    - name: Find Debug Apk
-      run: find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'debug' | xargs -r -I@ find @ -type f -name '*.apk' | xargs -r -I@ bash -c "echo "'"'"DEBUG-APK='@'"'"'" >> $GITHUB_ENV"
+    - name: Find Apk
+      shell: bash {0}
+      run: |
+        find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'debug' | xargs -r -I@ find @ -type f -name '*.apk' | xargs -r -I@ bash -c "echo "'"'"DEBUG-APK='@'"'"'" >> $GITHUB_ENV"
+        find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'release' | xargs -r -I@ find @ -type f -name '*.apk' | xargs -r -I@ bash -c "echo "'"'"RELEASE-APK='@'"'"'" >> $GITHUB_ENV"
+        . $GITHUB_ENV
+        [[ ! -n "$DEBUG-APK" ]] && echo DEBUG-APK=/not-found | tee $GITHUB_ENV || echo '"'"DEBUG-APK=$DEBUG-APK"'"'
+        [[ ! -n "$RELEASE-APK" ]] && echo RELEASE-APK=/not-found | tee $GITHUB_ENV || echo '"'"RELEASE-APK=$RELEASE-APK"'"'
     - name: Build Artifacts Twoyi-release.apk
       uses: actions/upload-artifact@v3
       with:
