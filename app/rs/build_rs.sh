@@ -6,4 +6,4 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 
-cargo xdk -t arm64-v8a -o ../src/main/jniLibs build $1
+cargo xdk -t arm64-v8a -o ../src/main/jniLibs build $1 || true
