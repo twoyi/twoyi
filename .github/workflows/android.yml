@@ -55,7 +55,7 @@ jobs:
       run: |
         free | head -n-1 | tail -n-1 | xargs -r | cut -d' ' -f4 | xargs bash -c 'echo MEMTOTAL=$0' >> $GITHUB_ENV
         . $GITHUB_ENV
-        sed -i "s/(org\.gradle\.jvmargs=-Xmx)2048m/\1${MEMTOTAL}k/g" ./gradle.properties
+        sed -i "s/$org\.gradle\.jvmargs=-Xmx2048m/org.gradle.jvmargs=${MEMTOTAL}k/g" ./gradle.properties
         echo  "./gradle.properties updated:"
         grep 'org.gradle.jvmargs=' ./gradle.properties
         exit 1
