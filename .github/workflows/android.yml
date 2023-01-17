@@ -40,6 +40,7 @@ jobs:
       uses: actions-rs/cargo@v1
       with:
          use-cross: true
+         command: build
     - name: Cargo install cargo-binstall
       run: cargo install cargo-binstall
     - name: Cargo install cross
