@@ -37,6 +37,7 @@ jobs:
           !~/work/app/rs/.*
           !~/work/app/rs/*.*
           ~/work/app/lint-baseline.xml
+          ~/work/app/src/main/assets/rootfs.7z
           ~/work/.m2
           ~/work/.cargo
           ~/work/.gradle
@@ -52,6 +53,19 @@ jobs:
           !./app/rs/.*
           !./app/rs/*.*
           ./app/lint-baseline.xml
+          ./app/src/main/assets/rootfs.7z
+    - name: Download Rootfs from lastest Twoyi.apk release
+      shell: bash {0}
+      run: |
+        [ -f ./app/src/main/assets/rootfs.7z ] && exit 0
+        mkdir extracted-apk
+        cd extracted-apk
+        curl -s https://api.github.com/repos/twoyi/twoyi/releases/latest | grep "browser_download_url.*\.apk" | cut -d : -f 2,3 | tr -d \" | wget -qi -
+        unzip *.apk
+        [ ! -d ../app/src/main/assets/ ] && mkdir -p ../app/src/main/assets/
+        mv assets/* ../app/src/main/assets/
+        cd -
+        rm -rf extracted-apk
     - name: Update Grandle JVM Memory
       shell: bash {0}
       run: |
