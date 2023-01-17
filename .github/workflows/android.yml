@@ -7,6 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    arch: aarch64
     steps:
     - uses: actions/checkout@v3
     - name: Cache
@@ -34,7 +35,7 @@ jobs:
       uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
-        target: armv7-unknown-linux-gnueabihf
+        target: aarch64-linux-android
         override: true
     - name: Cargo install ndk
       run: cargo install cargo-ndk
