@@ -118,7 +118,10 @@ jobs:
       #run: ./gradlew cargoBuild
     - name: Build with Gradle
       continue-on-error: true
-      run: ./gradlew build --debug --scan
+      run: |
+        ./gradlew build
+        ./gradlew assembleRelease -Prust-target=arm64
+        ./gradlew assembleDebug -Prust-target=arm64
     - name: Build Artifacts Twoyi-release.apk
       uses: actions/upload-artifact@v3
       with:
