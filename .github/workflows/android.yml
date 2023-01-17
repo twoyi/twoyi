@@ -118,9 +118,9 @@ jobs:
     - name: Build with Gradle
       continue-on-error: true
       run: |
-        ./gradlew build
-        ./gradlew assembleRelease -Prust-target=arm64
-        ./gradlew assembleDebug -Prust-target=arm64
+        ./gradlew build --info
+        ./gradlew assembleRelease -Prust-target=arm64 --info
+        ./gradlew assembleDebug -Prust-target=arm64 --info
     - name: Build Artifacts Twoyi-release.apk
       uses: actions/upload-artifact@v3
       with:
