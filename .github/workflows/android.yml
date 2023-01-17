@@ -53,7 +53,9 @@ jobs:
     - name: Update Grandle JVM Memory
       shell: bash {0}
       run: |
-        grep MemTotal /proc/meminfo | sed 's/MemTotal: ([0-9]*) kB/\1/g' | eval MEMTOTAL= >> $GITHUB_ENV
+        free | head -n-1 | tail -n-1 | xargs -r | cut -d' ' -f4
+        exit 1
+        grep MemTotal /proc/meminfo | sed 's/MemTotal: ([0-9]*) kB/\1/g' | MEMTOTAL= >> $GITHUB_ENV
         . $GITHUB_ENV
         sed -i "s/(org\.gradle\.jvmargs=-Xmx)2048m/\1${MEMTOTAL}k/g" ./gradle.properties
         echo  "./gradle.properties updated:"
