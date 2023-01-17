@@ -39,6 +39,7 @@ jobs:
     - name: Gradlew check cargo
       run: ./gradlew cargoBuild
     - name: Build with Gradle
+      uses: mikepenz/action-junit-report@v3
       run: ./gradlew build
     - name: Build
       uses: actions/upload-artifact@v3
