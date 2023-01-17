@@ -20,7 +20,7 @@ jobs:
       id: cache
       uses: actions/cache@v3
       with:
-        key: ${{ env.cache-name }}-${{ runner.os }}-${{ runner.arch }}-${{ runner.name }}-${{ env.target }}
+        key: ${{ env.cache-name }}-${{ runner.os }}-${{ runner.arch }}-${{ github.job }}-${{ env.target }}
         path: |
           ~/.m2
           ~/.cargo
