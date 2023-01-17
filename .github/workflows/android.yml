@@ -278,14 +278,14 @@ jobs:
     - name: Find Apk
       shell: bash {0}
       run: |
-        find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'debug' | xargs -r -I@ find @ -type f -name '*.apk' | xargs -r -I@ bash -c "echo 'DEBUGAPK="@"' >> $GITHUB_ENV"
+        find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'debug' | xargs -r -I@ find @ -type f -name '*.apk' | xargs -r -I@ bash -c 'echo DEBUGAPK="@"' >> $GITHUB_ENV"
         find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'release' | xargs -r -I@ find @ -type f -name '*.apk' | xargs -r -I@ bash -c 'echo RELEASEAPK="@"' >> $GITHUB_ENV"
         . $GITHUB_ENV
-        [[ ! -n "$DEBUGAPK" ]] && echo DEBUGAPK=/not-found >> $GITHUB_ENV
-        [[ ! -n "$RELEASEAPK" ]] && echo RELEASEAPK=/not-found >> $GITHUB_ENV
+        [[ ! -n "${DEBUGAPK}" ]] && echo DEBUGAPK="/not-found" >> $GITHUB_ENV
+        [[ ! -n "${RELEASEAPK}" ]] && echo RELEASEAPK="/not-found" >> $GITHUB_ENV
         . $GITHUB_ENV
-        echo '"'"DEBUGAPK=$DEBUGAPK"'"'
-        echo '"'"RELEASEAPK=$RELEASEAPK"'"'
+        echo DEBUGAPK=${DEBUGAPK}
+        echo RELEASEAPK=${RELEASEAPK}
     - name: Build Artifacts Twoyi-release.apk
       uses: actions/upload-artifact@v3
       with:
