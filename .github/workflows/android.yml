@@ -36,6 +36,8 @@ jobs:
          toolchain: stable
          target: aarch64-linux-android
          override: true
+    - name: Rustup add aarch64
+      run: rustup target add aarch64-linux-android
     - name: Cargo Setup aarch64
       uses: actions-rs/cargo@v1
       with:
@@ -43,14 +45,12 @@ jobs:
          command: build
     - name: Cargo install cargo-binstall
       run: cargo install cargo-binstall
-    - name: Cargo install cross
+    - name: Cargo binstall cross
       run: cargo binstall --no-confirm --no-symlinks cross
-    - name: Cargo binstall --no-confirm --no-symlinks ndk
+    - name: Cargo binstall ndk
       run: cargo binstall --no-confirm --no-symlinks cargo-ndk
-    - name: Cargo install xdk
+    - name: Cargo binstall xdk
       run: cargo binstall --no-confirm --no-symlinks cargo-xdk
-    - name: Rustup add aarch64
-      run: rustup target add aarch64-linux-android
     - name: Cargo Update
       run: cargo-update
     - name: set up JDK 11
