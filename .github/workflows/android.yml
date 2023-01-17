@@ -21,6 +21,7 @@ jobs:
             ~/.cargo
             ~/.gradle
             ~/.rustup
+            ~/work
             ~/app
             !~/app/.*
             !~/app/*.*
