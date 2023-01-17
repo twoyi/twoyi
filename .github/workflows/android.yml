@@ -289,8 +289,10 @@ jobs:
     - name: Build Artifacts Twoyi-release.apk
       uses: actions/upload-artifact@v3
       with:
+        name: Twoyi.apk RELEASE
         path: ${{ env.RELEASEAPK }}
     - name: Build Artifacts Twoyi-debug.apk
       uses: actions/upload-artifact@v3
       with:
+        name: Twoyi.apk DEBUG
         path: ${{ env.DEBUGAPK }}
