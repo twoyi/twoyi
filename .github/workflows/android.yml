@@ -8,9 +8,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-        arch: aarch64
-        target: ${{ env.arch }}-linux-android
-        binstall-args: --no-confirm --no-symlinks
+      arch: aarch64
+      target: ${{ env.arch }}-linux-android
+      binstall-args: --no-confirm --no-symlinks
     steps:
     - uses: actions/checkout@v3
     - name: Cache
@@ -21,26 +21,26 @@ jobs:
       with:
         key: ${{ runner.os }}-build-${{ env.cache-name }}
         path: |
-            ~/.m2
-            ~/.cargo
-            ~/.gradle
-            ~/.rustup
-            ~/work
-            ~/app
-            !~/app/.*
-            !~/app/*.*
-            !~/app/src
-            !~/app/rs/src
-            !~/app/rs/.*
-            !~/app/rs/*.*
-            ~/app/lint-baseline.xml
+          ~/.m2
+          ~/.cargo
+          ~/.gradle
+          ~/.rustup
+          ~/work
+          ~/app
+          !~/app/.*
+          !~/app/*.*
+          !~/app/src
+          !~/app/rs/src
+          !~/app/rs/.*
+          !~/app/rs/*.*
+          ~/app/lint-baseline.xml
     - name: Cargo install toolchain ${{ env.arch }}
       uses: actions-rs/toolchain@v1
       with:
-         toolchain: stable
-         target: ${{ env.target }}
-         override: true
-         default: true
+        toolchain: stable
+        target: ${{ env.target }}
+        override: true
+        default: true
     - name: Rustup add ${{ env.arch }}
       run: rustup target add aarch64-linux-android
     - name: Cargo install cargo-binstall
