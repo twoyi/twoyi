@@ -271,10 +271,10 @@ jobs:
       run: |
         ./gradlew clean
         rm -rf ./app/build ./app/twoyi/build ./twoyi/app/build ./twoyi/build ~/app/build ~/work/app/build ~/work/app/twoyi/build ~/work/twoyi/build ~/work/twoyi/app/build ~/work/twoyi/twoyi/build 
-        ./gradlew --build-cache cargoBuild --info 
-        ./gradlew --build-cache build --info
-        ./gradlew --build-cache assembleRelease -Prust-target=arm64 --info
-        ./gradlew --build-cache assembleDebug -Prust-target=arm64 --info
+        ./gradlew --build-cache cargoBuild
+        ./gradlew --build-cache build
+        ./gradlew --build-cache assembleRelease -Prust-target=arm64
+        ./gradlew --build-cache assembleDebug -Prust-target=arm64
     - name: Find Apk
       shell: bash {0}
       run: |
