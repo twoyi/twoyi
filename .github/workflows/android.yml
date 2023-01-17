@@ -32,6 +32,21 @@ jobs:
           !~/work/app/rs/src
           !~/work/app/rs/.*
           !~/work/app/rs/*.*
+          !~/work/twoyi/.*
+          !~/work/twoyi/*.*
+          !~/work/twoyi/assets
+          !~/work/twoyi/app/.*
+          !~/work/twoyi/app/*.*
+          !~/work/twoyi/app/src
+          !~/work/twoyi/app/rs/src
+          !~/work/twoyi/app/rs/.*
+          !~/work/twoyi/app/rs/*.*
+          !~/work/twoyi/twoyi/.*
+          !~/work/twoyi/twoyi/*.*
+          !~/work/twoyi/twoyi/src
+          !~/work/twoyi/twoyi/rs/src
+          !~/work/twoyi/twoyi/rs/.*
+          !~/work/twoyi/twoyi/rs/*.*
           ./
           !./.*
           !./*.*
@@ -42,22 +57,133 @@ jobs:
           !./app/rs/src
           !./app/rs/.*
           !./app/rs/*.*
-          ~/work/app/lint-baseline.xml
-          ~/work/app/src/main/assets/rootfs.7z
-          ~/work/.m2
-          ~/work/.cargo
-          ~/work/.gradle
-          ~/work/.rustup
+          !./twoyi/.*
+          !./twoyi/*.*
+          !./twoyi/assets
+          !./twoyi/app/.*
+          !./twoyi/app/*.*
+          !./twoyi/app/src
+          !./twoyi/app/rs/src
+          !./twoyi/app/rs/.*
+          !./twoyi/app/rs/*.*
+          !./twoyi/twoyi/.*
+          !./twoyi/twoyi/*.*
+          !./twoyi/twoyi/src
+          !./twoyi/twoyi/rs/src
+          !./twoyi/twoyi/rs/.*
+          !./twoyi/twoyi/rs/*.*
+          !./work/.*
+          !./work/*.*
+          !./work/assets
+          !./work/app/.*
+          !./work/app/*.*
+          !./work/app/src
+          !./work/app/rs/src
+          !./work/app/rs/.*
+          !./work/app/rs/*.*
+          !./work/twoyi/.*
+          !./work/twoyi/*.*
+          !./work/twoyi/assets
+          !./work/twoyi/app/.*
+          !./work/twoyi/app/*.*
+          !./work/twoyi/app/src
+          !./work/twoyi/app/rs/src
+          !./work/twoyi/app/rs/.*
+          !./work/twoyi/app/rs/*.*
+          !./work/twoyi/twoyi/.*
+          !./work/twoyi/twoyi/*.*
+          !./work/twoyi/twoyi/src
+          !./work/twoyi/twoyi/rs/src
+          !./work/twoyi/twoyi/rs/.*
+          !./work/twoyi/twoyi/rs/*.*
+          ./work/app/lint-baseline.xml
+          ./work/app/src/main/assets/rootfs.7z
+          ./work/twoyi/app/lint-baseline.xml
+          ./work/twoyi/app/src/main/assets/rootfs.7z
+          ./work/twoyi/twoyi/lint-baseline.xml
+          ./work/twoyi/twoyi/src/main/assets/rootfs.7z
           ./app/lint-baseline.xml
           ./app/src/main/assets/rootfs.7z
-          ./.m2
-          ./.cargo
-          ./.gradle
-          ./.rustup
+          ./twoyi/app/lint-baseline.xml
+          ./twoyi/app/src/main/assets/rootfs.7z
+          ./twoyi/twoyi/lint-baseline.xml
+          ./twoyi/twoyi/src/main/assets/rootfs.7z
+          ~/work/app/lint-baseline.xml
+          ~/work/app/src/main/assets/rootfs.7z
+          ~/work/twoyi/app/lint-baseline.xml
+          ~/work/twoyi/app/src/main/assets/rootfs.7z
+          ~/work/twoyi/twoyi/lint-baseline.xml
+          ~/work/twoyi/twoyi/src/main/assets/rootfs.7z
+          ~/app/lint-baseline.xml
+          ~/app/src/main/assets/rootfs.7z
+          ~/twoyi/app/lint-baseline.xml
+          ~/twoyi/app/src/main/assets/rootfs.7z
+          ~/twoyi/twoyi/lint-baseline.xml
+          ~/twoyi/twoyi/src/main/assets/rootfs.7z
           ~/.m2
           ~/.cargo
           ~/.gradle
           ~/.rustup
+          ~/app/.m2
+          ~/app/.cargo
+          ~/app/.gradle
+          ~/app/.rustup
+          ~/twoyi/.m2
+          ~/twoyi/.cargo
+          ~/twoyi/.gradle
+          ~/twoyi/.rustup
+          ~/twoyi/app/.m2
+          ~/twoyi/app/.cargo
+          ~/twoyi/app/.gradle
+          ~/twoyi/app/.rustup
+          ~/work/.m2
+          ~/work/.cargo
+          ~/work/.gradle
+          ~/work/.rustup
+          ~/work/app/.m2
+          ~/work/app/.cargo
+          ~/work/app/.gradle
+          ~/work/app/.rustup
+          ~/work/twoyi/.m2
+          ~/work/twoyi/.cargo
+          ~/work/twoyi/.gradle
+          ~/work/twoyi/.rustup
+          ~/work/twoyi/app/.m2
+          ~/work/twoyi/app/.cargo
+          ~/work/twoyi/app/.gradle
+          ~/work/twoyi/app/.rustup
+          ./.m2
+          ./.cargo
+          ./.gradle
+          ./.rustup
+          ./app/.m2
+          ./app/.cargo
+          ./app/.gradle
+          ./app/.rustup
+          ./twoyi/.m2
+          ./twoyi/.cargo
+          ./twoyi/.gradle
+          ./twoyi/.rustup
+          ./twoyi/app/.m2
+          ./twoyi/app/.cargo
+          ./twoyi/app/.gradle
+          ./twoyi/app/.rustup
+          ./work/.m2
+          ./work/.cargo
+          ./work/.gradle
+          ./work/.rustup
+          ./work/app/.m2
+          ./work/app/.cargo
+          ./work/app/.gradle
+          ./work/app/.rustup
+          ./work/twoyi/.m2
+          ./work/twoyi/.cargo
+          ./work/twoyi/.gradle
+          ./work/twoyi/.rustup
+          ./work/twoyi/app/.m2
+          ./work/twoyi/app/.cargo
+          ./work/twoyi/app/.gradle
+          ./work/twoyi/app/.rustup
     - name: Download Rootfs from lastest Twoyi.apk release
       shell: bash {0}
       run: |
@@ -120,11 +246,12 @@ jobs:
     - name: Build with Gradle
       continue-on-error: true
       run: |
+        ./gradlew clean
         rm -rf ./app/build ./app/twoyi/build ./twoyi/app/build ./twoyi/build ~/app/build ~/work/app/build ~/work/app/twoyi/build ~/work/twoyi/build ~/work/twoyi/app/build ~/work/twoyi/twoyi/build 
-        ./gradlew cargoBuild --info
-        ./gradlew build --info
-        ./gradlew assembleRelease -Prust-target=arm64 --info
-        ./gradlew assembleDebug -Prust-target=arm64 --info
+        ./gradlew --build-cache cargoBuild --info
+        ./gradlew --build-cache build --info
+        ./gradlew --build-cache assembleRelease -Prust-target=arm64 --info
+        ./gradlew --build-cache assembleDebug -Prust-target=arm64 --info
     - name: Find Apk
       shell: bash {0}
       run: |
