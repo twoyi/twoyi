@@ -27,9 +27,6 @@ jobs:
             ~/.rustup
         restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
     - uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
