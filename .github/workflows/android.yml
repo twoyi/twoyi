@@ -25,11 +25,11 @@ jobs:
             ~/app
             !~/app/.*
             !~/app/*.*
-            ~/app/lint-baseline.xml
             !~/app/src
             !~/app/rs/src
             !~/app/rs/.*
             !~/app/rs/*.*
+            ~/app/lint-baseline.xml
     - name: Cargo install toolchain aarch64
       uses: actions-rs/toolchain@v1
       with:
