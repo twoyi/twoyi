@@ -22,10 +22,6 @@ jobs:
       with:
         key: ${{ env.cache-name }}-${{ runner.os }}-${{ runner.arch }}-${{ github.job }}-${{ env.target }}
         path: |
-          ~/.m2
-          ~/.cargo
-          ~/.gradle
-          ~/.rustup
           ~/work
           !~/work/.*
           !~/work/*.*
@@ -36,12 +32,6 @@ jobs:
           !~/work/app/rs/src
           !~/work/app/rs/.*
           !~/work/app/rs/*.*
-          ~/work/app/lint-baseline.xml
-          ~/work/app/src/main/assets/rootfs.7z
-          ~/work/.m2
-          ~/work/.cargo
-          ~/work/.gradle
-          ~/work/.rustup
           ./
           !./.*
           !./*.*
@@ -52,8 +42,22 @@ jobs:
           !./app/rs/src
           !./app/rs/.*
           !./app/rs/*.*
+          ~/work/app/lint-baseline.xml
+          ~/work/app/src/main/assets/rootfs.7z
+          ~/work/.m2
+          ~/work/.cargo
+          ~/work/.gradle
+          ~/work/.rustup
           ./app/lint-baseline.xml
           ./app/src/main/assets/rootfs.7z
+          ./.m2
+          ./.cargo
+          ./.gradle
+          ./.rustup
+          ~/.m2
+          ~/.cargo
+          ~/.gradle
+          ~/.rustup
     - name: Download Rootfs from lastest Twoyi.apk release
       shell: bash {0}
       run: |
@@ -82,9 +86,15 @@ jobs:
         override: true
         default: true
     - name: Rustup add ${{ env.target }} and Cargo install cargo-binstall
+      shell: bash {0}
       run: |
         rustup target add ${{ env.target }}
-        cargo install cargo-binstall
+        [ -f $HOME/.cargo/bin/cargo-binstall ] && exit 0
+        wget -q https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-x86_64-unknown-linux-musl.tgz
+        [ ! -d $HOME/.cargo/bin ] && mkdir -p $HOME/.cargo/bin
+        tar -xf cargo-binstall-x86_64-unknown-linux-musl.tgz -C $HOME/.cargo/bin
+        rm cargo-binstall-x86_64-unknown-linux-musl.tgz
+        #cargo install cargo-binstall
     - name: Cargo binstall cargo-update cross cargo-ndk cargo-xdk
       run: cargo binstall ${{ env.binstall-args }} cargo-update cross cargo-ndk cargo-xdk 
     #- name: Cargo Setup to ${{ env.target }}
