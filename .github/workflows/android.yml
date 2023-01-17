@@ -217,7 +217,10 @@ jobs:
       run: |
         free -m | head -n-1 | tail -n-1 | xargs -r | cut -d' ' -f2 | xargs bash -c 'echo MEMTOTAL=$0' >> $GITHUB_ENV
         . $GITHUB_ENV
-        sed -i "s/$org\.gradle\.jvmargs=-Xmx2048m/org.gradle.jvmargs=-Xmx${MEMTOTAL}m/g" ./gradle.properties
+        MEMPERM=$(( ${MEMTOTAL} / $( nproc --all ))
+        echo "MEMPERM="'"'"${MEMPERM}"'"' >> $GITHUB_ENV
+        . $GITHUB_ENV
+        sed -i "s/-Xmx4g/-Xmx${MEMTOTAL}m/g;s/-XX:MaxPermSize=512m/-XX:MaxPermSize=${MEMPERM}m/g" ./gradle.properties
         echo  "./gradle.properties updated:"
         grep 'org.gradle.jvmargs=' ./gradle.properties
     - name: set up JDK 11
