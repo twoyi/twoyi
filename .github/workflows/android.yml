@@ -100,7 +100,7 @@ jobs:
         tar -xf cargo-binstall-x86_64-unknown-linux-musl.tgz -C $HOME/.cargo/bin
         rm cargo-binstall-x86_64-unknown-linux-musl.tgz
         #cargo install cargo-binstall
-    - name: Cargo binstall cargo-update cross cargo-ndk cargo-xdk
+    - name: Cargo binstall cargo-update cross cargo-xdk
       run: cargo binstall ${{ env.binstall-args }} cargo-update cross cargo-ndk cargo-xdk 
     #- name: Cargo Setup to ${{ env.target }}
       #uses: actions-rs/cargo@v1
