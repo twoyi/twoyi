@@ -50,7 +50,20 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
-
+apply plugin: "com.github.willir.rust.cargo-ndk-android"
+cargoNdk {
+    targets = ["arm64"]
+    module = new File(project.projectDir, "rs")
+    verbose = true
+    buildTypes {
+        release {
+            buildType = "release"
+        }
+        debug {
+            buildType = "debug"
+        }
+    }
+}
 task cargoBuild {
     doLast {
         exec {
@@ -62,11 +75,11 @@ task cargoBuild {
     }
 }
 
-tasks.whenTaskAdded { task ->
-    if ((task.name == 'javaPreCompileDebug' || task.name == 'javaPreCompileRelease')) {
-        task.dependsOn 'cargoBuild'
-    }
-}
+//tasks.whenTaskAdded { task ->
+   //if ((task.name == 'javaPreCompileDebug' || task.name == 'javaPreCompileRelease')) {
+        //task.dependsOn 'cargoBuild'
+    //}
+//}
 
 dependencies {
 
