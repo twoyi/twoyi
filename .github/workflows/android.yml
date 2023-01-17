@@ -84,6 +84,10 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: gradle
+    - uses: nttld/setup-ndk@v1
+      with:
+        ndk-version: r25b
+        local-cache: true
     - name: Cargo Setup toolchain action to ${{ env.target }}
       uses: actions-rs/toolchain@v1
       with:
