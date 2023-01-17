@@ -120,66 +120,82 @@ jobs:
           ~/twoyi/app/src/main/assets/rootfs.7z
           ~/twoyi/twoyi/lint-baseline.xml
           ~/twoyi/twoyi/src/main/assets/rootfs.7z
+          ~/.ideia
           ~/.m2
           ~/.cargo
           ~/.gradle
           ~/.rustup
+          ~/app/.ideia
           ~/app/.m2
           ~/app/.cargo
           ~/app/.gradle
           ~/app/.rustup
+          ~/twoyi/.ideia
           ~/twoyi/.m2
           ~/twoyi/.cargo
           ~/twoyi/.gradle
           ~/twoyi/.rustup
+          ~/twoyi/app/.ideia
           ~/twoyi/app/.m2
           ~/twoyi/app/.cargo
           ~/twoyi/app/.gradle
           ~/twoyi/app/.rustup
+          ~/work/.ideia
           ~/work/.m2
           ~/work/.cargo
           ~/work/.gradle
           ~/work/.rustup
+          ~/work/app/.ideia
           ~/work/app/.m2
           ~/work/app/.cargo
           ~/work/app/.gradle
           ~/work/app/.rustup
+          ~/work/twoyi/.ideia
           ~/work/twoyi/.m2
           ~/work/twoyi/.cargo
           ~/work/twoyi/.gradle
           ~/work/twoyi/.rustup
+          ~/work/twoyi/app/.ideia
           ~/work/twoyi/app/.m2
           ~/work/twoyi/app/.cargo
           ~/work/twoyi/app/.gradle
           ~/work/twoyi/app/.rustup
+          ./.ideia
           ./.m2
           ./.cargo
           ./.gradle
           ./.rustup
+          ./app/.ideia
           ./app/.m2
           ./app/.cargo
           ./app/.gradle
           ./app/.rustup
+          ./twoyi/.ideia
           ./twoyi/.m2
           ./twoyi/.cargo
           ./twoyi/.gradle
           ./twoyi/.rustup
+          ./twoyi/app/.ideia
           ./twoyi/app/.m2
           ./twoyi/app/.cargo
           ./twoyi/app/.gradle
           ./twoyi/app/.rustup
+          ./work/.ideia
           ./work/.m2
           ./work/.cargo
           ./work/.gradle
           ./work/.rustup
+          ./work/app/.ideia
           ./work/app/.m2
           ./work/app/.cargo
           ./work/app/.gradle
           ./work/app/.rustup
+          ./work/twoyi/.ideia
           ./work/twoyi/.m2
           ./work/twoyi/.cargo
           ./work/twoyi/.gradle
           ./work/twoyi/.rustup
+          ./work/twoyi/app/.ideia
           ./work/twoyi/app/.m2
           ./work/twoyi/app/.cargo
           ./work/twoyi/app/.gradle
@@ -248,7 +264,7 @@ jobs:
       run: |
         ./gradlew clean
         rm -rf ./app/build ./app/twoyi/build ./twoyi/app/build ./twoyi/build ~/app/build ~/work/app/build ~/work/app/twoyi/build ~/work/twoyi/build ~/work/twoyi/app/build ~/work/twoyi/twoyi/build 
-        ./gradlew --build-cache cargoBuild --info
+        ./gradlew --build-cache cargoBuild --info 
         ./gradlew --build-cache build --info
         ./gradlew --build-cache assembleRelease -Prust-target=arm64 --info
         ./gradlew --build-cache assembleDebug -Prust-target=arm64 --info
