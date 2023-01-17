@@ -25,18 +25,21 @@ jobs:
             ~/.cargo
             ~/.gradle
             ~/.rustup
-    - uses: actions-rs/toolchain@v1
+    - name: Cargo install toolchains
+      uses: actions-rs/toolchain@v1
       continue-on-error: true
       with:
         toolchain: stable
-        target: armv7-unknown-linux-gnueabihf
+        target: |
+            aarch64-linux-android
+            armv7-linux-androideabi
+            x86_64-linux-android
+            i686-linux-android
         override: true
         components: rustfmt, clippy
     - name: Cargo install xdk
       continue-on-error: true
-      run:  cargo install cargo-xdk
-    - name: Cargo install toolchains
-      run: rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
+      run: cargo install cargo-xdk
     - name: Cargo Setup
       continue-on-error: true
       uses: actions-rs/cargo@v1
