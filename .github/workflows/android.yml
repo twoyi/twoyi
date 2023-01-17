@@ -6,11 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
-env:
-  arch: aarch64
-  target: ${{ arch }}-linux-android
+env: 
+  target: aarch64-linux-android
   binstall-args: --no-confirm --no-symlinks
-  cache-name: ${{ runner.os }}-${{ runner.arch }}-${{ runner.name }}-cache-${{ target }}
+  cache-name: cache
 
 jobs:
   build:
@@ -21,7 +20,7 @@ jobs:
       id: cache
       uses: actions/cache@v3
       with:
-        key: ${{ env.cache-name }}
+        key: ${{ env.cache-name }}-${{ runner.os }}-${{ runner.arch }}-${{ runner.name }}-${{ env.target }}
         path: |
           ~/.m2
           ~/.cargo
