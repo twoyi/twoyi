@@ -25,13 +25,30 @@ jobs:
             ~/.cargo
             ~/.gradle
             ~/.rustup
-    - name: Cargo install toolchains
+    - name: Cargo install toolchains aarch64
       uses: actions-rs/toolchain@v1
       #continue-on-error: true
       with:
         toolchain: nightly
-        target: aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
-        override: true
+        target: aarch64-linux-android
+    - name: Cargo install toolchains armv7
+      uses: actions-rs/toolchain@v1
+      #continue-on-error: true
+      with:
+        toolchain: nightly
+        target: armv7-linux-androideabi
+    - name: Cargo install toolchains x86_64
+      uses: actions-rs/toolchain@v1
+      #continue-on-error: true
+      with:
+        toolchain: nightly
+        target: x86_64-linux-android
+    - name: Cargo install toolchains i686
+      uses: actions-rs/toolchain@v1
+      #continue-on-error: true
+      with:
+        toolchain: nightly
+        target: i686-linux-android
     - name: Cargo install xdk
       continue-on-error: true
       run: cargo install cargo-xdk
