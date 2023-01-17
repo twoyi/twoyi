@@ -15,7 +15,12 @@ android {
     buildToolsVersion "30.0.3"
 
     def buildSerial = new SimpleDateFormat("MMddHHmm").format(new Date())
-
+    dexOptions {
+        preDexLibraries true
+        javaMaxHeapSize "4g"
+        incremental true
+        dexInProcess = true
+    }
     defaultConfig {
         applicationId "io.twoyi"
         minSdkVersion 21
