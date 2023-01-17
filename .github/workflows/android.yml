@@ -87,10 +87,9 @@ jobs:
     - name: Cargo Setup toolchain action to ${{ env.target }}
       uses: actions-rs/toolchain@v1
       with:
-        toolchain: stable
+        toolchain: nightly
         target: ${{ env.target }}
         override: true
-        default: true
     - name: Rustup add ${{ env.target }} and Cargo install cargo-binstall
       shell: bash {0}
       run: |
