@@ -105,7 +105,7 @@ jobs:
         rm cargo-binstall-x86_64-unknown-linux-musl.tgz
         #cargo install cargo-binstall
     - name: Cargo binstall cargo-update cross cargo-xdk
-      run: cargo binstall ${{ env.binstall-args }} cargo-update cross cargo-ndk cargo-xdk 
+      run: cargo binstall ${{ env.binstall-args }} cargo-update cross cargo-xdk 
     #- name: Cargo Setup to ${{ env.target }}
       #uses: actions-rs/cargo@v1
       #with:
@@ -117,19 +117,23 @@ jobs:
       run: cargo install-update -a
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    #- name: Gradlew check cargo
-      #run: ./gradlew cargoBuild
     - name: Build with Gradle
       continue-on-error: true
       run: |
+        rm -rf ./app/build ./app/twoyi/build ./twoyi/app/build ./twoyi/build ~/app/build ~/work/app/build ~/work/app/twoyi/build ~/work/twoyi/build ~/work/twoyi/app/build ~/work/twoyi/twoyi/build 
+        ./gradlew cargoBuild --info
         ./gradlew build --info
         ./gradlew assembleRelease -Prust-target=arm64 --info
         ./gradlew assembleDebug -Prust-target=arm64 --info
+    - name: Find Release Apk
+      run: find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'release' | xargs -r -I@ find @ -type f -name '*.apk' | xargs -r -I@ bash -c "echo "'"'"RELEASE-APK='@'"'"'" >> $GITHUB_ENV"
+    - name: Find Debug Apk
+      run: find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'debug' | xargs -r -I@ find @ -type f -name '*.apk' | xargs -r -I@ bash -c "echo "'"'"DEBUG-APK='@'"'"'" >> $GITHUB_ENV"
     - name: Build Artifacts Twoyi-release.apk
       uses: actions/upload-artifact@v3
       with:
-        path: ./app/build/outputs/apk/release/*.apk
+        path: ${{ env.RELEASE-APK }}
     - name: Build Artifacts Twoyi-debug.apk
       uses: actions/upload-artifact@v3
       with:
-        path: ./app/build/outputs/apk/debug/*.apk
+        path: ${{ env.DEBUG-APK }}
