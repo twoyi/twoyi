@@ -4,11 +4,12 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+env:
+  arch-target: aarch64
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      arch-target: aarch64
       target: ${{ env.arch-target }}-linux-android
       binstall-args: --no-confirm --no-symlinks
       cache-name: ${{ runner.os }}-${{ runner.arch }}-${{ runner.name }}-cache-${{ env.target }}
