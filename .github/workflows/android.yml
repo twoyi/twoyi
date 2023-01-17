@@ -1,17 +1,12 @@
 name: Android CI
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+#on:
+  #push:
+    #branches: [ "main" ]
+  #pull_request:
+    #branches: [ "main" ]
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - arch: aarch64
-            distro: ubuntu_latest
     steps:
     - uses: actions/checkout@v3
     - name: Cache
@@ -38,26 +33,25 @@ jobs:
     - name: Cargo install toolchain aarch64
       uses: actions-rs/toolchain@v1
       with:
-        toolchain: stable
-        target: aarch64-linux-android
-        override: true
-        arch: ${{ matrix.arch }}
-        distro: ${{ matrix.distro }}
-    - name: Cargo install ndk
+         toolchain: stable
+         target: aarch64-linux-android
+         override: true
+    - name: Cargo Setup aarch64
+      uses: actions-rs/cargo@v1
       with:
-          arch: ${{ matrix.arch }}
-          distro: ${{ matrix.distro }}
-          run: cargo install cargo-ndk
+         use-cross: true
+    - name: Cargo install cargo-binstall
+      run: cargo install cargo-binstall
+    - name: Cargo install cross
+      run: cargo binstall --no-confirm --no-symlinks cross
+    - name: Cargo binstall --no-confirm --no-symlinks ndk
+      run: cargo binstall --no-confirm --no-symlinks cargo-ndk
     - name: Cargo install xdk
-      with:
-          arch: ${{ matrix.arch }}
-          distro: ${{ matrix.distro }}
-          run: cargo install cargo-xdk
-    - name: Cargo Setup Toolchains
-      with:
-          arch: ${{ matrix.arch }}
-          distro: ${{ matrix.distro }}
-          run: rustup target add aarch64-linux-android
+      run: cargo binstall --no-confirm --no-symlinks cargo-xdk
+    - name: Rustup add aarch64
+      run: rustup target add aarch64-linux-android
+    - name: Cargo Update
+      run: cargo-update
     - name: set up JDK 11
       uses: actions/setup-java@v3
       with:
@@ -67,21 +61,15 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Gradlew check cargo
-      with:
-          arch: ${{ matrix.arch }}
-          distro: ${{ matrix.distro }}
-          run: ./gradlew cargoBuild
+      run: ./gradlew cargoBuild
     - name: Build with Gradle
       continue-on-error: true
-      with:
-          arch: ${{ matrix.arch }}
-          distro: ${{ matrix.distro }}
-          run: ./gradlew build
+      run: ./gradlew build
     - name: Build Artifacts Twoyi-release.apk
       uses: actions/upload-artifact@v3
       with:
-        path: ~/app/build/outputs/apk/release/*.apk
-    - name: Build Artifacts Twoyi-debug.apk
-      uses: actions/upload-artifact@v3
-      with:
-        path: ~/app/build/outputs/apk/debug/*.apk
+        path: ~/
+    #- name: Build Artifacts Twoyi-debug.apk
+      #uses: actions/upload-artifact@v3
+      #with:
+        #path: ~/app/build/outputs/apk/debug/*.apk
