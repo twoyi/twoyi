@@ -8,17 +8,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      arch: aarch64
-      target: aarch64-linux-android
+      arch-target: aarch64
+      target: ${{ env.arch-target }}-linux-android
       binstall-args: --no-confirm --no-symlinks
-      cache-name: cache
+      cache-name: ${{ runner.os }}-${{ runner.arch }}-${{ runner.name }}-cache-${{ env.target }}
     steps:
     - uses: actions/checkout@v3
     - name: Cache
       id: cache
       uses: actions/cache@v3
       with:
-        key: ${{ runner.os }}-build-${{ env.cache-name }}
+        key: ${{ env.cache-name }}
         path: |
           ~/.m2
           ~/.cargo
@@ -40,18 +40,18 @@ jobs:
         target: ${{ env.target }}
         override: true
         default: true
-    - name: Rustup add ${{ env.arch }} and Cargo install cargo-binstall
+    - name: Rustup add ${{ env.target }} and Cargo install cargo-binstall
       run: |
-        rustup target add aarch64-linux-android
+        rustup target add ${{ env.target }}
         cargo install cargo-binstall
     - name: Cargo binstall cargo-update cross cargo-ndk cargo-xdk
       run: cargo binstall ${{ env.binstall-args }} cargo-update cross cargo-ndk cargo-xdk 
-    #- name: Cargo Setup ${{ env.arch }}
+    #- name: Cargo Setup ${{ env.arch-target }}
       #uses: actions-rs/cargo@v1
       #with:
          #use-cross: true
          #command: 
-         #args: --target aarch64-linux-android 
+         #args: --target ${{ env.target }} 
     - name: Cargo Update
       continue-on-error: true
       run: cargo update && cargo install-update -a && cargo cargo-update
