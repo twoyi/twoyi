@@ -19,7 +19,17 @@ jobs:
       env:
         cache-name: cache
       with:
-        path: ~/.m2 ~/.cargo ~/.gradle ~/.rustup
+        key: ${{ runner.os }}-build-${{ env.cache-name }}
+        path: |
+            ~/.m2
+            ~/.cargo
+            ~/.gradle
+            ~/.rustup
+        restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
     - uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
@@ -49,7 +59,7 @@ jobs:
       uses: mikepenz/action-junit-report@v3
       with:
         run: ./gradlew build
-    - name: Build
+    - name: Build Artifacts
       uses: actions/upload-artifact@v3
       with:
         path: .
