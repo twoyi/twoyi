@@ -31,7 +31,9 @@ android {
         }
         archivesBaseName = "twoyi_${versionName}"
     }
-
+    lintOptions {
+        baseline file("lint-baseline.xml")
+    }
     buildTypes {
         release {
             minifyEnabled false
