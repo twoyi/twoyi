@@ -52,7 +52,7 @@ android {
 apply plugin: "com.github.willir.rust.cargo-ndk-android"
 cargoNdk {
     targets = ["arm64"]
-    module = new File(project.projectDir, "rs")
+    module = project.projectDir + "/rs"
     verbose = true
     buildTypes {
         release {
