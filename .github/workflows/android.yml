@@ -1,16 +1,12 @@
 name: Android CI
-
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Cache
@@ -25,6 +21,14 @@ jobs:
             ~/.cargo
             ~/.gradle
             ~/.rustup
+            ~/app
+            !~/app/.*
+            !~/app/*.*
+            ~/app/lint-baseline.xml
+            !~/app/src
+            !~/app/rs/src
+            !~/app/rs/.*
+            !~/app/rs/*.*
     - name: Cargo install toolchains aarch64
       uses: actions-rs/toolchain@v1
       continue-on-error: true
@@ -71,7 +75,11 @@ jobs:
     - name: Build with Gradle
       continue-on-error: true
       run: ./gradlew build --stacktrace --debug --scan
-    - name: Build Artifacts
+    - name: Build Artifacts Twoyi-release.apk
       uses: actions/upload-artifact@v3
       with:
-        path: .
+        path: ~/app/build/outputs/apk/release/*.apk
+    - name: Build Artifacts Twoyi-debug.apk
+      uses: actions/upload-artifact@v3
+      with:
+        path: ~/app/build/outputs/apk/debug/*.apk
