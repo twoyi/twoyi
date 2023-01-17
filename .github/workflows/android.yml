@@ -10,10 +10,9 @@ jobs:
     steps:
       env:
         arch: aarch64
-        target: "${{ env.arch }}-linux-android"
+        target: ${{ env.arch }}-linux-android
         binstall-args: --no-confirm --no-symlinks
-        cache-name: "${{ runner.os }}-${{ runner.arch }}-${{ runner.name }}-cache-${{ env.target }}"
-
+        cache-name: ${{ runner.os }}-${{ runner.arch }}-${{ runner.name }}-cache-${{ env.target }}
     - uses: actions/checkout@v3
     - name: Cache
       id: cache
