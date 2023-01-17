@@ -30,11 +30,7 @@ jobs:
       #continue-on-error: true
       with:
         toolchain: nightly
-        target: |
-            aarch64-linux-android
-            armv7-linux-androideabi
-            x86_64-linux-android
-            i686-linux-android
+        target: aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
         override: true
     - name: Cargo install xdk
       continue-on-error: true
