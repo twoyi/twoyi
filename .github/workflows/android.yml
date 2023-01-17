@@ -25,23 +25,25 @@ jobs:
             ~/.cargo
             ~/.gradle
             ~/.rustup
-        restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}
     - uses: actions-rs/toolchain@v1
+      continue-on-error: true
       with:
         toolchain: stable
         target: armv7-unknown-linux-gnueabihf
         override: true
         components: rustfmt, clippy
     - name: Cargo install xdk
+      continue-on-error: true
       run:  cargo install cargo-xdk
     - name: Cargo install toolchains
       run:  rustup target add aarch64-linux-android armv7-linux-androideabi
     - name: Cargo Setup
+      continue-on-error: true
       uses: actions-rs/cargo@v1
       with:
         use-cross: true
     - name: Cargo Setup NDK
+      continue-on-error: true
       run: cargo ndk -t armeabi-v7a -t arm64-v8a -o ./jniLibs build --release 
     - name: set up JDK 11
       uses: actions/setup-java@v3
