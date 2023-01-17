@@ -27,9 +27,9 @@ jobs:
             ~/.rustup
     - name: Cargo install toolchains
       uses: actions-rs/toolchain@v1
-      continue-on-error: true
+      #continue-on-error: true
       with:
-        toolchain: stable
+        toolchain: nightly
         target: |
             aarch64-linux-android
             armv7-linux-androideabi
@@ -58,7 +58,7 @@ jobs:
       run: ./gradlew cargoBuild
     - name: Build with Gradle
       continue-on-error: true
-      run: ./gradlew build
+      run: ./gradlew build --stacktrace --debug --scan
     - name: Build Artifacts
       uses: actions/upload-artifact@v3
       with:
