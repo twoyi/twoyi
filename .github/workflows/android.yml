@@ -34,7 +34,7 @@ jobs:
       uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
-        target: aarch64-unknown-linux-gnu
+        target: armv7-unknown-linux-gnueabihf
         override: true
     - name: Cargo install ndk
       run: cargo install cargo-ndk
