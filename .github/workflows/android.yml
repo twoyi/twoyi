@@ -29,6 +29,7 @@ jobs:
           ~/work
           !~/work/.*
           !~/work/*.*
+          !~/work/assets
           !~/work/app/.*
           !~/work/app/*.*
           !~/work/app/src
@@ -43,6 +44,7 @@ jobs:
           ./
           !./.*
           !./*.*
+          !./assets
           !./app/.*
           !./app/*.*
           !./app/src
