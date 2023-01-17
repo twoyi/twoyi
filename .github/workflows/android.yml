@@ -16,15 +16,28 @@ jobs:
     - uses: actions-rs/toolchain@v1
       with:
           toolchain: stable
+          target: armv7-unknown-linux-gnueabihf
+          override: true
+          components: rustfmt, clippy
+    - name: Cargo install xdk
+      run:  cargo install cargo-xdk
+    - name: Cargo install toolchains
+      run:  rustup target add aarch64-linux-android armv7-linux-androideabi
+    - name: Cargo Setup
+      uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          run: cargo ndk -t armeabi-v7a -t arm64-v8a -o ./jniLibs build --release 
     - name: set up JDK 11
       uses: actions/setup-java@v3
       with:
         java-version: '11'
         distribution: 'temurin'
         cache: gradle
-
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+    - name: Gradlew check cargo
+      run: ./gradlew cargoBuild
     - name: Build with Gradle
       run: ./gradlew build
     - name: Build
