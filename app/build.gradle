@@ -17,7 +17,6 @@ android {
     def buildSerial = new SimpleDateFormat("MMddHHmm").format(new Date())
     defaultConfig {
         applicationId "io.twoyi"
-        testApplicationId "io.twoyi"
         minSdkVersion 21
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 27
@@ -35,15 +34,11 @@ android {
     }
     buildTypes {
         release {
-            applicationId "io.twoyi"
             minifyEnabled false
-            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            applicationId "io.twoyi"
             minifyEnabled false
-            debuggable true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
