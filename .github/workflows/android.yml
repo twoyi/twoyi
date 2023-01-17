@@ -92,7 +92,7 @@ jobs:
       run: ./gradlew cargoBuild
     - name: Build with Gradle
       continue-on-error: true
-      run: ./gradlew build
+      run: ./gradlew build --debug
     - name: Build Artifacts
       uses: actions/upload-artifact@v3
       with:
