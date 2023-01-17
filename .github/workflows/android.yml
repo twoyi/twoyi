@@ -4,21 +4,19 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-env:
-  arch: aarch64
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      target: ${{ env.arch }}-linux-android
+      arch: aarch64
+      target: aarch64-linux-android
       binstall-args: --no-confirm --no-symlinks
+      cache-name: cache
     steps:
     - uses: actions/checkout@v3
     - name: Cache
       id: cache
       uses: actions/cache@v3
-      env:
-        cache-name: cache
       with:
         key: ${{ runner.os }}-build-${{ env.cache-name }}
         path: |
@@ -35,32 +33,27 @@ jobs:
           !~/app/rs/.*
           !~/app/rs/*.*
           ~/app/lint-baseline.xml
-    - name: Cargo install toolchain ${{ env.arch }}
+    - name: Cargo Setup toolchain action ${{ env.arch }}
       uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
         target: ${{ env.target }}
         override: true
         default: true
-    - name: Rustup add ${{ env.arch }}
-      run: rustup target add aarch64-linux-android
-    - name: Cargo install cargo-binstall
-      run: cargo install cargo-binstall
-    - name: Cargo binstall cargo-update
-      run: cargo binstall ${{ env.binstall-args }} cargo-update
-    - name: Cargo binstall cross
-      run: cargo binstall ${{ env.binstall-args }} cross
+    - name: Rustup add ${{ env.arch }} and Cargo install cargo-binstall
+      run: |
+        rustup target add aarch64-linux-android
+        cargo install cargo-binstall
+    - name: Cargo binstall cargo-update cross cargo-ndk cargo-xdk
+      run: cargo binstall ${{ env.binstall-args }} cargo-update cross cargo-ndk cargo-xdk 
     #- name: Cargo Setup ${{ env.arch }}
       #uses: actions-rs/cargo@v1
       #with:
          #use-cross: true
          #command: 
          #args: --target aarch64-linux-android 
-    - name: Cargo binstall ndk
-      run: cargo binstall ${{ env.binstall-args }} cargo-ndk
-    - name: Cargo binstall xdk
-      run: cargo binstall ${{ env.binstall-args }} cargo-xdk
     - name: Cargo Update
+      continue-on-error: true
       run: cargo update && cargo install-update -a && cargo cargo-update
     - name: set up JDK 11
       uses: actions/setup-java@v3
