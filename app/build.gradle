@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat
  */
 
 plugins {
-    id 'java'
     id 'com.android.application'
 }
 
