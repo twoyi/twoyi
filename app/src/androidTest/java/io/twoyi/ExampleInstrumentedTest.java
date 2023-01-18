@@ -11,10 +11,14 @@ import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.RunWith;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.Assert.*;
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
+
+//import static org.junit.Assert.*;
 
 /**
  * Instrumented test, which will execute on an Android device.
