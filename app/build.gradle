@@ -13,13 +13,13 @@ plugins {
 android {
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
-
+    ndkVersion "25.1.8937393"
     def buildSerial = new SimpleDateFormat("MMddHHmm").format(new Date())
     defaultConfig {
         applicationId "io.twoyi"
-        minSdkVersion 26
+        minSdkVersion 28
         //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 10354
         versionName "0.5.4-${buildSerial}"
 
