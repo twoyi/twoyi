@@ -32,6 +32,11 @@ android {
     lintOptions {
         baseline file("lint-baseline.xml")
     }
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
