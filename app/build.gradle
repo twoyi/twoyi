@@ -13,38 +13,45 @@ plugins {
 android {
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
-
+    ndkVersion "25.1.8937393"
     def buildSerial = new SimpleDateFormat("MMddHHmm").format(new Date())
-
     defaultConfig {
         applicationId "io.twoyi"
-        minSdkVersion 27
+        minSdkVersion 28
         //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 10354
         versionName "0.5.4-${buildSerial}"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
         ndk {
             abiFilters "arm64-v8a"
         }
         archivesBaseName = "twoyi_${versionName}"
     }
-
+    lintOptions {
+        baseline file("lint-baseline.xml")
+    }
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
-            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 }
-
 task cargoBuild {
     doLast {
         exec {
@@ -55,9 +62,22 @@ task cargoBuild {
         }
     }
 }
+task cargoBuildDebug {
+    doLast {
+        exec {
+            //切换到sh文件所在的目录，执行脚本
+            workingDir new File(project.projectDir, "rs")
+            //执行shell脚本 "," 传参
+            commandLine "sh", "build_rs.sh", "--debug"
+        }
+    }
+}
 
 tasks.whenTaskAdded { task ->
-    if ((task.name == 'javaPreCompileDebug' || task.name == 'javaPreCompileRelease')) {
+   if ((task.name == 'javaPreCompileDebug')) {
+        task.dependsOn 'cargoBuildDebug'
+    }
+    if ((task.name == 'javaPreCompileRelease')) {
         task.dependsOn 'cargoBuild'
     }
 }
@@ -90,16 +110,19 @@ dependencies {
     implementation 'org.tukaani:xz:1.5'
 
     implementation 'com.hzy:libp7zip:1.7.0'
-//    implementation "com.github.seven332.a7zip:extract:master-SNAPSHOT"
-//    implementation 'com.github.omicronapps:7-Zip-JBinding-4Android:Release-16.02-2.02'
-//    implementation 'com.victor:lib:1.0.4'
+    //implementation "com.github.seven332.a7zip:extract:master-SNAPSHOT"
+    //implementation 'com.github.omicronapps:7-Zip-JBinding-4Android:Release-16.02-2.02'
+    //implementation 'com.victor:lib:1.0.4'
     implementation 'com.cleveroad:androidmanimation:0.9.1'
 
     def appCenterSdkVersion = '4.3.1'
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
-
-//    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testCompileOnly 'junit:junit:4.12' 
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.8.1'
+    //testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

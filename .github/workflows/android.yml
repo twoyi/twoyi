@@ -1,0 +1,130 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env: 
+  target: aarch64-linux-android
+  binstall-args: --no-confirm --no-symlinks
+  cache-name: cache
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Cache
+      id: cache
+      uses: actions/cache@v3
+      with:
+        key: ${{ env.cache-name }}-${{ runner.os }}-${{ runner.arch }}-${{ github.job }}-${{ env.target }}
+        path: |
+          ~/
+          !~/work/twoyi/twoyi/assets
+          !~/work/twoyi/twoyi/.*
+          !~/work/twoyi/twoyi/*.*
+          !~/work/twoyi/twoyi/app/.*
+          !~/work/twoyi/twoyi/app/*.*
+          !~/work/twoyi/twoyi/app/src
+          !~/work/twoyi/twoyi/app/rs/src
+          !~/work/twoyi/twoyi/app/rs/.*
+          !~/work/twoyi/twoyi/app/rs/*.*
+          ~/work/twoyi/twoyi/app/lint-baseline.xml
+          ~/work/twoyi/twoyi/app/src/main/assets/rootfs.7z
+    - name: Download Rootfs from lastest Twoyi.apk release
+      shell: bash {0}
+      run: |
+        [ -f ./app/src/main/assets/rootfs.7z ] && exit 0
+        mkdir extracted-apk
+        cd extracted-apk
+        curl -s https://api.github.com/repos/twoyi/twoyi/releases/latest | grep "browser_download_url.*\.apk" | cut -d : -f 2,3 | tr -d \" | wget -qi -
+        unzip *.apk
+        [ ! -d ../app/src/main/assets/ ] && mkdir -p ../app/src/main/assets/
+        mv assets/* ../app/src/main/assets/
+        cd -
+        rm -rf extracted-apk
+    - name: Update Grandle JVM Memory
+      shell: bash {0}
+      run: |
+        free -m | head -n-1 | tail -n-1 | xargs -r | cut -d' ' -f2 | xargs bash -c 'echo MEMTOTAL=$0' >> $GITHUB_ENV
+        . $GITHUB_ENV
+        MEMPERM=$(( ${MEMTOTAL} / $( nproc --all ) ))
+        echo "MEMPERM="'"'"${MEMPERM}"'"' >> $GITHUB_ENV
+        . $GITHUB_ENV
+        sed -i "s/-Xmx4g/-Xmx${MEMTOTAL}m/g" ./gradle.properties
+        sed -i "s/-XX:MaxPermSize=512m/-XX:MaxPermSize=${MEMPERM}m/g" ./gradle.properties
+        echo  "./gradle.properties updated:"
+        grep 'org.gradle.jvmargs=' ./gradle.properties
+    - name: Setup JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+    - name: Setup NDK
+      uses: nttld/setup-ndk@v1
+      with:
+        ndk-version: r25b
+        local-cache: true
+    - name: Cargo Setup toolchain action to ${{ env.target }}
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: nightly
+        target: ${{ env.target }}
+        override: true
+    - name: Rustup add ${{ env.target }} and Cargo install cargo-binstall
+      shell: bash {0}
+      run: |
+        rustup target add ${{ env.target }}
+        [ -f $HOME/.cargo/bin/cargo-binstall ] && exit 0
+        wget -q https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-x86_64-unknown-linux-musl.tgz
+        [ ! -d $HOME/.cargo/bin ] && mkdir -p $HOME/.cargo/bin
+        tar -xf cargo-binstall-x86_64-unknown-linux-musl.tgz -C $HOME/.cargo/bin
+        rm cargo-binstall-x86_64-unknown-linux-musl.tgz
+        #cargo install cargo-binstall
+    - name: Cargo binstall cargo-update cross cargo-xdk
+      run: cargo binstall ${{ env.binstall-args }} cargo-update cross cargo-xdk 
+    #- name: Cargo Setup to ${{ env.target }}
+      #uses: actions-rs/cargo@v1
+      #with:
+         #use-cross: true
+         #command: 
+         #args: --target ${{ env.target }} 
+    - name: Cargo Update
+      continue-on-error: true
+      run: cargo install-update -a
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Build with Gradle
+      continue-on-error: true
+      run: |
+        ./gradlew clean
+        rm -rf ./app/build ./app/twoyi/build ./twoyi/app/build ./twoyi/build ~/app/build ~/work/app/build ~/work/app/twoyi/build ~/work/twoyi/build ~/work/twoyi/app/build ~/work/twoyi/twoyi/build 
+        ./gradlew wrapper --gradle-version=7.5.1
+        ./gradlew --build-cache build -Prust-target=arm64
+        ./gradlew --build-cache assembleRelease -Prust-target=arm64
+        ./gradlew --build-cache assembleDebug -Prust-target=arm64
+    - name: Find Apk
+      shell: bash {0}
+      run: |
+        find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'debug' -print -quit | xargs -r -I@ find @ -type f -name '*.apk' | ( xargs -r -I@ echo 'DEBUGAPK=@' >> $GITHUB_ENV )
+        find ~/ -type d -name 'apk' | xargs -r -I@ find @ -type d -name 'release' -print -quit | xargs -r -I@ find @ -type f -name '*.apk' | ( xargs -r -I@ echo 'RELEASEAPK=@' >> $GITHUB_ENV )
+        . $GITHUB_ENV
+        [[ ! -n "${DEBUGAPK}" ]] && echo DEBUGAPK=/not-found >> $GITHUB_ENV
+        [[ ! -n "${RELEASEAPK}" ]] && echo RELEASEAPK=/not-found >> $GITHUB_ENV
+        . $GITHUB_ENV
+        echo DEBUGAPK=${DEBUGAPK}
+        echo RELEASEAPK=${RELEASEAPK}
+    - name: Build Artifacts Twoyi-release.apk
+      uses: actions/upload-artifact@v3
+      with:
+        name: Twoyi.apk RELEASE
+        path: ${{ env.RELEASEAPK }}
+    - name: Build Artifacts Twoyi-debug.apk
+      uses: actions/upload-artifact@v3
+      with:
+        name: Twoyi.apk DEBUG
+        path: ${{ env.DEBUGAPK }}
