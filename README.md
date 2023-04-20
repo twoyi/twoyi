@@ -1,4 +1,8 @@
 <div align="center">
+    <p><b>Due to the complexity of the project and lack of any revenue, the project has been discontinued.</b></p>
+</div>
+
+<div align="center">
     <p>
     <h3>
       <b>
@@ -10,6 +14,7 @@
     <b>
       A lightweight Android container
     </b>
+    <br/>
   </p>
   <p>
 
